@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/anywhere_you_are"
+        android:contentDescription="@string/login_offer"
+        android:layout_marginTop="180dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/CustomTextHeader"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="17dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/CustomTextNormalGray"
+        android:text="@string/slogan"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <Button
+        android:id="@+id/go_to_reg_but"
+        android:layout_width="357dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_but_blue"
+        android:textAppearance="@style/CustomTextButtonWhite"
+        android:text="@string/create_account"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="95dp"
+        />
+
+    <Button
+        android:id="@+id/go_to_log_but"
+        android:layout_width="357dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_but_white"
+        android:textAppearance="@style/CustomTextButtonBlue"
+        android:text="@string/log_in"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="7dp"/>
+</LinearLayout>

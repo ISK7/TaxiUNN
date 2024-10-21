@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.LightTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
+
+    </style>
+
+    <style name="CustomTextHeader">
+        <item name="android:fontFamily">@font/inter_variablefont_opszwght</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineHeight">30sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="CustomTextNormalBlack">
+        <item name="android:fontFamily">@font/inter_variablefont_opszwght</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="CustomTextNormalGray">
+        <item name="android:fontFamily">@font/inter_variablefont_opszwght</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">20sp</item>
+        <item name="android:textColor">@color/grey1</item>
+    </style>
+    <style name="CustomTextButtonWhite">
+        <item name="android:fontFamily">@font/inter_variablefont_opszwght</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="CustomTextButtonBlue">
+        <item name="android:fontFamily">@font/inter_variablefont_opszwght</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/blue_primary</item>
+    </style>
+    <style name="CustomTextButtonBack">
+        <item name="android:fontFamily">@font/inter_variablefont_opszwght</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="CustomTextSmallGrey">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/grey2</item>
+    </style>
+
+    <style name="CustomEditTextLight" parent="Widget.AppCompat.EditText">
+        <item name="android:editTextBackground">@color/grey3</item>
+        <item name="android:editTextPreferenceStyle">@style/CustomTextNormalGray</item>
+    </style>
+
+</resources>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Registration template</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="slogan">Это тестовое приложение. Оно не для релиза.</string>
+    <string name="login_offer">Продолжить?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="back">Назад</string>
+    <string name="log_in_to_account">Вход в аккаунт</string>
+    <string name="enter_e_mail">Введите ваш e-mail</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="forget_password">Забыли пароль? </string>
+    <string name="no_account">Нет аккаунта?</string>
+    <string name="registration">Регистрация</string>
+    <string name="name">Имя Фамилия</string>
+    <string name="name_example">Антон Антонов</string>
+    <string name="login">e-mail</string>
+    <string name="password">Пароль</string>
+    <string name="you_are_agree">Зарегистрировавшись вы соглашаетесь с <a href="http://www.google.com">Условиями обслуживания</a> и <a href="http://www.google.com">Политикой конфиденциальности</a>.</string>
+    <string name="log_in">Войти</string>
+    <string name="create_account">Создать аккаунт</string>
+    <string name="already_created">Уже есть аккаунт?</string>
+    <string name="send_code_ask">Нам нужно подтвердить вашу личность. Нажмите на кнопку, чтобы получить код по e-mail и введите его здесь</string>
+    <string name="send_code">Отправить код</string>
+    <string name="write_here">Пишите здесь</string>
+    <string name="done">Готово</string>
+    <string name="refuse">Назад</string>
+    <string name="log_out">Выйти</string>
+</resources>
