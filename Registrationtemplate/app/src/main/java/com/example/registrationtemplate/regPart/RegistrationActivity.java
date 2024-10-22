@@ -38,7 +38,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
     private void trySendCode() {
-
+            Intent intent = new Intent(this, CodeConfirmActivity.class);
+            startActivity(intent);
     }
     private void startLog() {
         Intent intent = new Intent(this, LogInActivity.class);

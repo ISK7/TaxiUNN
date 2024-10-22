@@ -42,7 +42,8 @@ public class LogInActivity extends AppCompatActivity {
         finish();
     }
     private void forgetPassword() {
-
+        Intent intent = new Intent(this, NewPassActivity.class);
+        startActivity(intent);
     }
     private void createAccount() {
         Intent intent = new Intent(this, RegistrationActivity.class);

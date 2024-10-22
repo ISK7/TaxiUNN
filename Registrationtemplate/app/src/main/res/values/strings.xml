@@ -8,7 +8,6 @@
     <string name="back">Назад</string>
     <string name="log_in_to_account">Вход в аккаунт</string>
     <string name="enter_e_mail">Введите ваш e-mail</string>
-    <string name="enter_password">Введите пароль</string>
     <string name="forget_password">Забыли пароль? </string>
     <string name="no_account">Нет аккаунта?</string>
     <string name="registration">Регистрация</string>
@@ -25,6 +24,14 @@
     <string name="code_not_sent">Код не пришёл?</string>
     <string name="send_again">Отправить заново</string>
     <string name="confirm">Подтвердить</string>
+    <string name="set_password_head">Установите пароль</string>
+    <string name="password_must">Пароль никому ничего не должен</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="second_password">Повторный пароль</string>
+    <string name="password_restoration">Восстановление пароля</string>
+    <string name="send_code">Отправить код</string>
     <string name="refuse">Назад</string>
+    <string name="done">Готово</string>
     <string name="log_out">Выйти</string>
 </resources>
