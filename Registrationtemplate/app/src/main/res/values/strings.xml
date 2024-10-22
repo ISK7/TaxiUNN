@@ -16,14 +16,15 @@
     <string name="name_example">Антон Антонов</string>
     <string name="login">e-mail</string>
     <string name="password">Пароль</string>
-    <string name="you_are_agree">Зарегистрировавшись вы соглашаетесь с <a href="http://www.google.com">Условиями обслуживания</a> и <a href="http://www.google.com">Политикой конфиденциальности</a>.</string>
+    <string name="you_are_agree">Зарегистрировавшись вы соглашаетесь с <a href="http://www.google.com">Условиями обслуживания</a> и <a href="https://yandex.ru">Политикой конфиденциальности</a>.</string>
     <string name="log_in">Войти</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="already_created">Уже есть аккаунт?</string>
-    <string name="send_code_ask">Нам нужно подтвердить вашу личность. Нажмите на кнопку, чтобы получить код по e-mail и введите его здесь</string>
-    <string name="send_code">Отправить код</string>
-    <string name="write_here">Пишите здесь</string>
-    <string name="done">Готово</string>
+    <string name="send_code_head">Введите пятизначный код</string>
+    <string name="send_coded">Код подтверждения отправлен на почту</string>
+    <string name="code_not_sent">Код не пришёл?</string>
+    <string name="send_again">Отправить заново</string>
+    <string name="confirm">Подтвердить</string>
     <string name="refuse">Назад</string>
     <string name="log_out">Выйти</string>
 </resources>
