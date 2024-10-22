@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center">
     <FrameLayout
+        android:id="@+id/back_component_l"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageButton
@@ -28,34 +29,41 @@
             />
     </FrameLayout>
     <TextView
+        android:id="@+id/log_in_text_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomTextHeader"
         android:text="@string/log_in_to_account"
         android:textAlignment="center"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dp"/>
+        android:layout_below="@id/back_component_l"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        />
     <TextView
+        android:id="@+id/e_mail_text_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomTextNormalBlack"
         android:text="@string/enter_e_mail"
         android:textAlignment="textStart"
         android:layout_marginTop="22dp"
-        android:layout_marginStart="40dp"
+        android:layout_alignStart="@id/login_view_l"
+        android:layout_below="@id/log_in_text_l"
         />
     <EditText
         android:id="@+id/login_view_l"
         android:layout_width="335dp"
         android:layout_height="45dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:hint="@string/login"
         android:autofillHints="emailAddress"
         android:inputType="text"
         android:paddingStart="8dp"
         android:background="@drawable/custom_edit_gray"
+        android:layout_below="@id/e_mail_text_l"
         />
     <TextView
+        android:id="@+id/password_text_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomTextNormalBlack"
@@ -63,13 +71,16 @@
         android:textAlignment="textStart"
         android:layout_marginTop="22dp"
         android:layout_marginStart="40dp"
+        android:layout_below="@id/login_view_l"
         />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_view_component"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/password_text_l"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_view_l"
@@ -92,6 +103,7 @@
         android:clickable="true"
         style="@style/CustomTextNormalGray"
         android:text="@string/forget_password"
+        android:layout_below="@id/password_view_component"
         />
 
     <Button
@@ -101,20 +113,23 @@
         android:background="@drawable/custom_but_blue"
         android:textAppearance="@style/CustomTextButtonWhite"
         android:text="@string/log_in"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="190dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/log_to_reg_component"
+        android:layout_marginBottom="20dp"
         />
 
     <LinearLayout
-        android:layout_marginTop="30dp"
+        android:id="@+id/log_to_reg_component"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             style="@style/CustomTextNormalGray"
             android:text="@string/no_account"
             />
@@ -124,10 +139,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:layout_gravity="center_horizontal"
             style="@style/CustomTextNormalGray"
             android:text="@string/registration"
             android:textColor="@color/blue_primary"
             />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/image_view_passenger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/anywhere_you_are"
         android:contentDescription="@string/login_offer"
         android:layout_marginTop="180dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         />
 
     <TextView
+        android:id="@+id/welcome_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/CustomTextHeader"
         android:text="@string/welcome"
         android:textAlignment="center"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/image_view_passenger"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         />
     <TextView
+        android:id="@+id/slogan_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/CustomTextNormalGray"
         android:text="@string/slogan"
         android:textAlignment="center"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/welcome_text"
         />
 
     <Button
@@ -38,8 +43,9 @@
         android:background="@drawable/custom_but_blue"
         android:textAppearance="@style/CustomTextButtonWhite"
         android:text="@string/create_account"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="95dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/go_to_log_but"
+        android:layout_marginBottom="10dp"/>
         />
 
     <Button
@@ -49,6 +55,7 @@
         android:background="@drawable/custom_but_white"
         android:textAppearance="@style/CustomTextButtonBlue"
         android:text="@string/log_in"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="7dp"/>
-</LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="7dp"/>
+</RelativeLayout>
