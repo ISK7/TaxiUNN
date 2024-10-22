@@ -13,6 +13,7 @@ import com.example.registrationtemplate.R;
 
 public class CodeConfirmActivity extends AppCompatActivity {
 
+    ImageButton back;
     Button confirm;
     TextView send_again;
 
@@ -22,6 +23,10 @@ public class CodeConfirmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirm_code);
         initialization();
+    }
+
+    private void back() {
+        finish();
     }
 
     private void sendAgain() {
@@ -36,6 +41,9 @@ public class CodeConfirmActivity extends AppCompatActivity {
     }
 
     private void initialization() {
+        back = findViewById(R.id.code_back_but);
+        back.setOnClickListener(v -> back());
+
         code = findViewById(R.id.code_c);
 
         send_again = findViewById(R.id.send_again_c);
