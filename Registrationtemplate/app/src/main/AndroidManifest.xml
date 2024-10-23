@@ -16,11 +16,28 @@
             android:name=".regPart.LogInActivity"
             android:exported="false"
             android:label="@string/log_in"
-            android:theme="@style/Theme.LightTheme" />
+            android:theme="@style/Theme.LightTheme"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".regPart.RegistrationActivity"
             android:exported="false"
-            android:theme="@style/Theme.LightTheme" />
+            android:theme="@style/Theme.LightTheme"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".regPart.CodeConfirmActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LightTheme"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".regPart.NewPassActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LightTheme"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".regPart.PasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LightTheme"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".regPart.AuthorizationActivity"
             android:exported="true"
