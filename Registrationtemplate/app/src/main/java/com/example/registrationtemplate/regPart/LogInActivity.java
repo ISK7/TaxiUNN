@@ -1,6 +1,7 @@
 package com.example.registrationtemplate.regPart;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ public class LogInActivity extends AppCompatActivity {
     ImageButton back_but;
     TextView to_new_password_but;
     TextView to_reg_but;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +29,33 @@ public class LogInActivity extends AppCompatActivity {
         initialization();
     }
 
+    private String passwordToHash(String input) {
+        String result = new String(input);
+        return result;
+    }
+
+    private String getName() {
+        // Это заглушка!!!!!!
+        String res = new String();
+        getSharedPreferences("RegPrefs", MODE_PRIVATE).getString("name", res);
+        return res;
+    }
+
     private boolean tryToLogin() {
 
         return true;
     }
     private void incorrectLogin() {
 
+    }
+    private void correctLogin() {
+        editor.putString("emailAddress",login.getText().toString());
+        editor.putString("password", passwordToHash(password.getText().toString()));
+        editor.putString("name", getName());
+        editor.putBoolean("isLogged", true);
+        editor.apply();
+
+        startMain();
     }
     private void startMain() {
         Intent intent = new Intent(this, MainAppActivity.class);
@@ -51,21 +74,21 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void initialization() {
+        editor = getSharedPreferences("RegPrefs", MODE_PRIVATE).edit();
+
         login = findViewById(R.id.login_view_l);
         password = findViewById(R.id.password_view_l);
 
         login_but = findViewById(R.id.login_but_l);
         login_but.setOnClickListener(v -> {
             if (tryToLogin()) {
-                startMain();
+                correctLogin();
             }
             else incorrectLogin();
         });
 
         back_but = findViewById(R.id.login_back_but);
-        back_but.setOnClickListener(v -> {
-            back();
-        });
+        back_but.setOnClickListener(v -> back());
 
         to_new_password_but = findViewById(R.id.forget_password_but);
         to_new_password_but.setOnClickListener(v -> forgetPassword());

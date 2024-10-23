@@ -1,6 +1,7 @@
 package com.example.registrationtemplate.regPart;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText login;
     Button reg_but;
     TextView reg_to_log_but;
-
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private void incorrectReg() {
 
     }
+    private void correctReg() {
+        editor.putString("emailAddress",login.getText().toString());
+        editor.putString("name", name.getText().toString());
+        editor.apply();
+
+        trySendCode();
+    }
     private void trySendCode() {
             Intent intent = new Intent(this, CodeConfirmActivity.class);
             startActivity(intent);
@@ -47,6 +55,8 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void initialization() {
+        editor = getSharedPreferences("RegPrefs", MODE_PRIVATE).edit();
+
         name = findViewById(R.id.name_view_r);
         login = findViewById(R.id.login_view_r);
 
@@ -55,7 +65,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (tryToReg()) {
-                    trySendCode();
+                    correctReg();
                 }
                 else incorrectReg();
             }

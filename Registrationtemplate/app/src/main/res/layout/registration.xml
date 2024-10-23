@@ -57,7 +57,7 @@
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:hint="@string/name_example"
-        android:autofillHints="emailAddress"
+        android:autofillHints="name"
         android:inputType="text"
         android:paddingStart="8dp"
         android:background="@drawable/custom_edit_gray"

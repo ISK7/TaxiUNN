@@ -1,6 +1,7 @@
 package com.example.registrationtemplate.regPart;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,13 +14,19 @@ public class AuthorizationActivity extends AppCompatActivity {
 
     Button yesBut;
     Button logBut;
-    private boolean isAuthorized = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authoriz_offer);
-        if(isAuthorized) startMain();
+
+        if(isAuthorized()) startMain();
         initialize();
+    }
+
+    private boolean isAuthorized() {
+        boolean res = false;
+        getSharedPreferences("RegPrefs", MODE_PRIVATE).getBoolean("isLogged",res);
+        return res;
     }
 
     private void startReg() {
