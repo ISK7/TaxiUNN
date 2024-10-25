@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,7 @@ import com.example.registrationtemplate.R;
 public class NewPassActivity extends AppCompatActivity {
 
     EditText e_mail;
+    ImageButton back_but;
     Button sendCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class NewPassActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CodeConfirmActivity.class);
         startActivity(intent);
     }
+    private void back() {
+        finish();
+    }
 
     private void initialization() {
         e_mail = findViewById(R.id.email_view_n);
@@ -37,5 +42,8 @@ public class NewPassActivity extends AppCompatActivity {
             if(tryToSend())
                 sendCode();
         });
+
+        back_but = findViewById(R.id.newp_back_but);
+        back_but.setOnClickListener(v -> back());
     }
 }
