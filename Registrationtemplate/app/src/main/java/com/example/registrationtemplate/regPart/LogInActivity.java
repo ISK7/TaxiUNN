@@ -3,6 +3,7 @@ package com.example.registrationtemplate.regPart;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,6 +21,7 @@ public class LogInActivity extends AppCompatActivity {
     ImageButton back_but;
     TextView to_new_password_but;
     TextView to_reg_but;
+    SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
     @Override
@@ -35,9 +37,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private String getName() {
-        // Это заглушка!!!!!!
-        String res = new String();
-        getSharedPreferences("RegPrefs", MODE_PRIVATE).getString("name", res);
+        String res = sharedPreferences.getString("name",getString(R.string.name_not_found));
         return res;
     }
 
@@ -52,8 +52,7 @@ public class LogInActivity extends AppCompatActivity {
         editor.putString("emailAddress",login.getText().toString());
         editor.putString("password", passwordToHash(password.getText().toString()));
         editor.putString("name", getName());
-        editor.putBoolean("isLogged", true);
-        editor.apply();
+        editor.commit();
 
         startMain();
     }
@@ -74,7 +73,8 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void initialization() {
-        editor = getSharedPreferences("RegPrefs", MODE_PRIVATE).edit();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
 
         login = findViewById(R.id.login_view_l);
         password = findViewById(R.id.password_view_l);

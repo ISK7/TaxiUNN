@@ -3,6 +3,7 @@ package com.example.registrationtemplate.regPart;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,6 +18,7 @@ public class PasswordActivity extends AppCompatActivity {
     EditText newPassword;
     EditText secondPassword;
     Button done;
+    SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,7 @@ public class PasswordActivity extends AppCompatActivity {
 
     private void correctPassword() {
         editor.putString("password", passwordToHash(secondPassword.getText().toString()));
-        editor.putBoolean("isLogged",true);
-        editor.apply();
+        editor.commit();
 
         startMain();
     }
@@ -55,7 +56,8 @@ public class PasswordActivity extends AppCompatActivity {
     }
 
     private void initialization() {
-        editor = getSharedPreferences("RegPrefs", MODE_PRIVATE).edit();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
 
         back = findViewById(R.id.password_back_but);
         back.setOnClickListener(v -> back());

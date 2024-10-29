@@ -3,7 +3,7 @@ package com.example.registrationtemplate.regPart;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,6 +21,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText login;
     Button reg_but;
     TextView reg_to_log_but;
+    SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     CheckBox politics_check;
     @Override
@@ -28,11 +29,6 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
         initialization();
-    }
-
-    private void startMain() {
-        Intent intent = new Intent(this, MainAppActivity.class);
-        startActivity(intent);
     }
 
     private boolean tryToReg() {
@@ -71,7 +67,8 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void initialization() {
-        editor = getSharedPreferences("RegPrefs", MODE_PRIVATE).edit();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
 
         back = findViewById(R.id.reg_back_but);
         back.setOnClickListener(v -> back());
@@ -80,14 +77,11 @@ public class RegistrationActivity extends AppCompatActivity {
         login = findViewById(R.id.login_view_r);
 
         reg_but = findViewById(R.id.reg_but_r);
-        reg_but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (tryToReg()) {
-                    correctReg();
-                }
-                else incorrectReg();
+        reg_but.setOnClickListener(v -> {
+            if (tryToReg()) {
+                correctReg();
             }
+            else incorrectReg();
         });
 
         politics_check = findViewById(R.id.politics_check_box_r);

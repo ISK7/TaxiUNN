@@ -3,7 +3,7 @@ package com.example.registrationtemplate.regPart;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.preference.PreferenceManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import com.example.registrationtemplate.R;
 public class MainAppActivity extends AppCompatActivity {
 
     Button logout_but;
+    SharedPreferences sharedPreferences;
     SharedPreferences.Editor regEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,18 +23,19 @@ public class MainAppActivity extends AppCompatActivity {
     }
 
     private void init() {
-        regEditor = getSharedPreferences("RegPrefs", MODE_PRIVATE).edit();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        regEditor = sharedPreferences.edit();
+        regEditor.putBoolean("isLogged",true);
+        regEditor.commit();
 
         logout_but = findViewById(R.id.log_out_but);
-        logout_but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                regEditor.putBoolean("isLogged",false);
-                regEditor.apply();
-                //do smth
-                Intent intent = new Intent(v.getContext(), AuthorizationActivity.class);
-                startActivity(intent);
-            }
+        logout_but.setOnClickListener(v -> {
+            regEditor.putBoolean("isLogged",false);
+            regEditor.commit();
+            //do smth
+
+            Intent intent = new Intent(v.getContext(), AuthorizationActivity.class);
+            startActivity(intent);
         });
     }
 }

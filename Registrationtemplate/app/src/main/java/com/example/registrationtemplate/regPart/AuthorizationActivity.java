@@ -3,7 +3,7 @@ package com.example.registrationtemplate.regPart;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.preference.PreferenceManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,19 +14,20 @@ public class AuthorizationActivity extends AppCompatActivity {
 
     Button yesBut;
     Button logBut;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authoriz_offer);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if(isAuthorized()) startMain();
+
         initialize();
     }
 
     private boolean isAuthorized() {
-        boolean res = false;
-        getSharedPreferences("RegPrefs", MODE_PRIVATE).getBoolean("isLogged",res);
-        return res;
+        return sharedPreferences.getBoolean("isLogged", false);
     }
 
     private void startReg() {
@@ -44,19 +45,9 @@ public class AuthorizationActivity extends AppCompatActivity {
 
     private void initialize() {
         logBut = findViewById(R.id.go_to_log_but);
-        logBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startLog();
-            }
-        });
+        logBut.setOnClickListener(v -> startLog());
 
         yesBut = findViewById(R.id.go_to_reg_but);
-        yesBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startReg();
-            }
-        });
+        yesBut.setOnClickListener(v -> startReg());
     }
 }
