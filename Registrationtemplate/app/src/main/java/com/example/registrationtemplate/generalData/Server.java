@@ -5,5 +5,9 @@ import java.net.URL;
 //Класс для работы с сервером
 public class Server {
 
-    public final static int port = 8080;
+    private final static int port = 8080;
+
+    public static int getPort() {
+        return port;
+    }
 }
