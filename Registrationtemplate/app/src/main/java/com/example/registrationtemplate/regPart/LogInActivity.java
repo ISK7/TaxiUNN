@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
 
+//Активность для входа в аккаунт
 public class LogInActivity extends AppCompatActivity {
 
     EditText login;
@@ -21,7 +22,11 @@ public class LogInActivity extends AppCompatActivity {
     ImageButton back_but;
     TextView to_new_password_but;
     TextView to_reg_but;
+
+    //Общие для всего приложения настройки
     SharedPreferences sharedPreferences;
+
+    //Объект для изменения общих настроек
     SharedPreferences.Editor editor;
 
     @Override
@@ -31,12 +36,14 @@ public class LogInActivity extends AppCompatActivity {
         initialization();
     }
 
+    //Перевод пароля из обычной строки в её хэш-аналог для безопасности
     private String passwordToHash(String input) {
         String result = new String(input);
         return result;
     }
 
     private String getName() {
+        //имя нужно запрашивать у сервера!
         String res = sharedPreferences.getString("name",getString(R.string.name_not_found));
         return res;
     }
@@ -49,6 +56,7 @@ public class LogInActivity extends AppCompatActivity {
 
     }
     private void correctLogin() {
+        //Вносим новые данные в аккаует
         editor.putString("emailAddress",login.getText().toString());
         editor.putString("password", passwordToHash(password.getText().toString()));
         editor.putString("name", getName());
@@ -63,10 +71,14 @@ public class LogInActivity extends AppCompatActivity {
     private void back() {
         finish();
     }
+
+    //Если пользователь забыл пароль
     private void forgetPassword() {
         Intent intent = new Intent(this, NewPassActivity.class);
         startActivity(intent);
     }
+
+    //Если пользователь хочет зарегестрироваться
     private void createAccount() {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);

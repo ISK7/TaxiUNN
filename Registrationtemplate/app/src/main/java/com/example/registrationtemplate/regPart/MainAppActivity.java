@@ -13,7 +13,11 @@ import com.example.registrationtemplate.R;
 public class MainAppActivity extends AppCompatActivity {
 
     Button logout_but;
+
+    //Общие для всего приложения настройки
     SharedPreferences sharedPreferences;
+
+    //Объект для изменения общих настроек
     SharedPreferences.Editor regEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

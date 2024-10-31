@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
 
+//Активность для подтверждения необходимости нового пароля
 public class NewPassActivity extends AppCompatActivity {
 
     EditText e_mail;

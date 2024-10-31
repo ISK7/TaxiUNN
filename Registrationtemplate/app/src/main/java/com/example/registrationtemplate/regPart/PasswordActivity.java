@@ -12,13 +12,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
 
+//Активность для ввода пароля и его подтверждения
 public class PasswordActivity extends AppCompatActivity {
 
     ImageButton back;
     EditText newPassword;
     EditText secondPassword;
     Button done;
+
+    //Общие для всего приложения настройки
     SharedPreferences sharedPreferences;
+
+    //Объект для изменения общих настроек
     SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

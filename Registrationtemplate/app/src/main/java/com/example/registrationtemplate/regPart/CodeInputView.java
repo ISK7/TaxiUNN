@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.example.registrationtemplate.R;
 
+//Кастомная View для принятия кода
 public class CodeInputView extends LinearLayout {
 
     private EditText[] editTexts;
@@ -72,6 +73,7 @@ public class CodeInputView extends LinearLayout {
         editTexts[0].requestFocus();
     }
 
+    //Обработка нажатия backspace
     public void handleBackPress() {
         for (int i = editTexts.length - 1; i >= 0; i--) {
             if (editTexts[i].isFocused()) {
@@ -89,6 +91,7 @@ public class CodeInputView extends LinearLayout {
         }
     }
 
+    //Обработка нажатия клавиши
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_DEL) {

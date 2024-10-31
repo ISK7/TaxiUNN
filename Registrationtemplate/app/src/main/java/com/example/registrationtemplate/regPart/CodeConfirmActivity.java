@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
 
+//Активность для проверки кода подтверждения
 public class CodeConfirmActivity extends AppCompatActivity {
 
     ImageButton back;
     Button confirm;
     TextView send_again;
 
+    //Кастомная view
     CodeInputView code;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

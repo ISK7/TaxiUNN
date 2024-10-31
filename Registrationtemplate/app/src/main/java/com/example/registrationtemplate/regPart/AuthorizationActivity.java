@@ -10,18 +10,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
 
+/*
+Стартовая активность проекта.
+В зависимости от наличия регистрации в предыдущих сессиях
+либо пересылает на основной экран либо начинает авторизацию
+*/
 public class AuthorizationActivity extends AppCompatActivity {
+
 
     Button yesBut;
     Button logBut;
+
+    //Общие для всего приложения настройки
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authoriz_offer);
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if(isAuthorized()) startMain();
 
         initialize();
     }
@@ -34,6 +39,7 @@ public class AuthorizationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
+
     private void startLog() {
         Intent intent = new Intent(this, LogInActivity.class);
         startActivity(intent);
@@ -44,6 +50,10 @@ public class AuthorizationActivity extends AppCompatActivity {
     }
 
     private void initialize() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //проверка идёт сразу, чтобы лишний раз не загружать объекты
+        if(isAuthorized()) startMain();
+
         logBut = findViewById(R.id.go_to_log_but);
         logBut.setOnClickListener(v -> startLog());
 

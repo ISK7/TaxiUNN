@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
 
+//Активность для регистрации нового аккаунта
 public class RegistrationActivity extends AppCompatActivity {
 
     ImageButton back;
@@ -21,7 +22,10 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText login;
     Button reg_but;
     TextView reg_to_log_but;
+
+    //Общие для всего приложения настройки
     SharedPreferences sharedPreferences;
+    //Объект для изменения общих настроек
     SharedPreferences.Editor editor;
     CheckBox politics_check;
     @Override
@@ -45,10 +49,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
         trySendCode();
     }
+
+    //Переход на следующий этап регистрации
     private void trySendCode() {
             Intent intent = new Intent(this, CodeConfirmActivity.class);
             startActivity(intent);
     }
+
+    //Если пользователь хочет войти в существующий аккаунт
     private void startLog() {
         Intent intent = new Intent(this, LogInActivity.class);
         startActivity(intent);
@@ -58,6 +66,7 @@ public class RegistrationActivity extends AppCompatActivity {
         finish();
     }
 
+    //Обрабатывает изменение чекбокса, проверяющего согласие с политикой конфиденциальности
     private void checkChange() {
         reg_but.setEnabled(!reg_but.isEnabled());
         if(reg_but.isEnabled())
