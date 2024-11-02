@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
+import com.example.registrationtemplate.generalData.App;
+import com.example.registrationtemplate.generalData.Status;
 
 //Активность для регистрации нового аккаунта
 public class RegistrationActivity extends AppCompatActivity {
@@ -58,6 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     //Если пользователь хочет войти в существующий аккаунт
     private void startLog() {
+        App.setStatus(Status.Log_in);
         Intent intent = new Intent(this, LogInActivity.class);
         startActivity(intent);
     }

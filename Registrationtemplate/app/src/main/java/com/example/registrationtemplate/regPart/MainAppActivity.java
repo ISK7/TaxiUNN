@@ -9,6 +9,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
+import com.example.registrationtemplate.generalData.App;
+import com.example.registrationtemplate.generalData.Status;
 
 public class MainAppActivity extends AppCompatActivity {
 
@@ -38,6 +40,7 @@ public class MainAppActivity extends AppCompatActivity {
             regEditor.commit();
             //do smth
 
+            App.setStatus(Status.No_status);
             Intent intent = new Intent(v.getContext(), AuthorizationActivity.class);
             startActivity(intent);
         });

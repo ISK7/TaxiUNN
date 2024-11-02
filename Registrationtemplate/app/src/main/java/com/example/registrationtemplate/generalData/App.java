@@ -14,6 +14,7 @@ import com.example.registrationtemplate.regPart.MainAppActivity;
 либо пересылает на основной экран либо начинает авторизацию
 */
 public class App extends Application {
+    private static Status status;
 
     @Override
     public void onCreate() {
@@ -25,10 +26,14 @@ public class App extends Application {
         //Общие для всего приложения настройки
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //проверка идёт сразу, чтобы лишний раз не загружать объекты
-        if(sharedPreferences.getBoolean("isLogged", false))
+        if(sharedPreferences.getBoolean("isLogged", false)) {
+            setStatus(Status.Using);
             startMain();
-        else
+        }
+        else {
+            setStatus(Status.No_status);
             startAutho();
+        }
     }
     private void startMain() {
         Intent intent = new Intent(this, MainAppActivity.class);
@@ -39,5 +44,13 @@ public class App extends Application {
         Intent intent = new Intent(this, AuthorizationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public static void setStatus(Status s) {
+        status = s;
+    }
+
+    public static Status getStatus() {
+        return status;
     }
 }

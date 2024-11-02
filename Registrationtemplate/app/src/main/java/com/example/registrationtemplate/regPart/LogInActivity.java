@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
+import com.example.registrationtemplate.generalData.App;
+import com.example.registrationtemplate.generalData.Status;
 
 //Активность для входа в аккаунт
 public class LogInActivity extends AppCompatActivity {
@@ -65,6 +67,7 @@ public class LogInActivity extends AppCompatActivity {
         startMain();
     }
     private void startMain() {
+        App.setStatus(Status.Using);
         Intent intent = new Intent(this, MainAppActivity.class);
         startActivity(intent);
     }
@@ -80,6 +83,7 @@ public class LogInActivity extends AppCompatActivity {
 
     //Если пользователь хочет зарегестрироваться
     private void createAccount() {
+        App.setStatus(Status.Registration);
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }

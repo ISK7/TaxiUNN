@@ -7,10 +7,13 @@ import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
+import com.example.registrationtemplate.generalData.App;
+import com.example.registrationtemplate.generalData.Status;
 
 //Активность для ввода пароля и его подтверждения
 public class PasswordActivity extends AppCompatActivity {
@@ -19,6 +22,7 @@ public class PasswordActivity extends AppCompatActivity {
     EditText newPassword;
     EditText secondPassword;
     Button done;
+    TextView header;
 
     //Общие для всего приложения настройки
     SharedPreferences sharedPreferences;
@@ -63,6 +67,17 @@ public class PasswordActivity extends AppCompatActivity {
     private void initialization() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
+
+        Status s = App.getStatus();
+
+        header = findViewById(R.id.password_title_p);
+        if(s == Status.Log_in)
+        {
+            header.setText(R.string.set_new_password_head);
+        }
+        else {
+            header.setText(R.string.set_password_head);
+        }
 
         back = findViewById(R.id.password_back_but);
         back.setOnClickListener(v -> back());
