@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
+import com.example.registrationtemplate.generalData.App;
+import com.example.registrationtemplate.generalData.Status;
 
 //Активность для проверки кода подтверждения
 public class CodeConfirmActivity extends AppCompatActivity {
@@ -38,8 +40,13 @@ public class CodeConfirmActivity extends AppCompatActivity {
         return true;
     }
     private void startPassword() {
-        Intent intent = new Intent(this, PasswordActivity.class);
-        startActivity(intent);
+        if(App.getStatus() == Status.REGISTRATION) {
+            Intent intent = new Intent(this, LogInActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, PasswordActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void initialization() {

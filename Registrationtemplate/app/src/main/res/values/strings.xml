@@ -36,4 +36,5 @@
     <string name="done">Готово</string>
     <string name="log_out">Выйти</string>
     <string name="name_not_found">Имя не найдено</string>
+    <string name="invent_password">Придумайте ваш пароль</string>
 </resources>

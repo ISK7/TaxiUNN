@@ -20,9 +20,9 @@ import com.example.registrationtemplate.generalData.Status;
 public class RegistrationActivity extends AppCompatActivity {
 
     ImageButton back;
-    EditText name;
+    EditText password;
     EditText login;
-    TextView name_er;
+    TextView password_er;
     TextView login_er;
     Button reg_but;
     TextView reg_to_log_but;
@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
     private void correctReg() {
         editor.putString("emailAddress",login.getText().toString());
-        editor.putString("name", name.getText().toString());
+        editor.putString("password", password.getText().toString());
         editor.apply();
 
         trySendCode();
@@ -88,9 +88,9 @@ public class RegistrationActivity extends AppCompatActivity {
         back = findViewById(R.id.reg_back_but);
         back.setOnClickListener(v -> back());
 
-        name = findViewById(R.id.name_view_r);
+        password = findViewById(R.id.password_enter_r);
         login = findViewById(R.id.login_view_r);
-        name_er = findViewById(R.id.name_error_r);
+        password_er = findViewById(R.id.password_error_r);
         login_er = findViewById(R.id.log_in_error_r);
 
         reg_but = findViewById(R.id.reg_but_r);
