@@ -25,6 +25,8 @@ public class MainAppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_app);
+
+        App.setStatus(Status.USING);
         init();
     }
 
@@ -40,7 +42,6 @@ public class MainAppActivity extends AppCompatActivity {
             regEditor.commit();
             //do smth
 
-            App.setStatus(Status.No_status);
             Intent intent = new Intent(v.getContext(), AuthorizationActivity.class);
             startActivity(intent);
         });

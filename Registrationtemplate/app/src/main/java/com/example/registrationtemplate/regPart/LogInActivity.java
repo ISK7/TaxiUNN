@@ -24,6 +24,8 @@ public class LogInActivity extends AppCompatActivity {
     ImageButton back_but;
     TextView to_new_password_but;
     TextView to_reg_but;
+    TextView login_er;
+    TextView password_er;
 
     //Общие для всего приложения настройки
     SharedPreferences sharedPreferences;
@@ -35,6 +37,8 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
+
+        App.setStatus(Status.LOG_IN);
         initialization();
     }
 
@@ -67,7 +71,6 @@ public class LogInActivity extends AppCompatActivity {
         startMain();
     }
     private void startMain() {
-        App.setStatus(Status.Using);
         Intent intent = new Intent(this, MainAppActivity.class);
         startActivity(intent);
     }
@@ -83,7 +86,6 @@ public class LogInActivity extends AppCompatActivity {
 
     //Если пользователь хочет зарегестрироваться
     private void createAccount() {
-        App.setStatus(Status.Registration);
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
@@ -94,6 +96,9 @@ public class LogInActivity extends AppCompatActivity {
 
         login = findViewById(R.id.login_view_l);
         password = findViewById(R.id.password_view_l);
+
+        login_er = findViewById(R.id.error_email_l);
+        password_er = findViewById(R.id.error_pass_l);
 
         login_but = findViewById(R.id.login_but_l);
         login_but.setOnClickListener(v -> {

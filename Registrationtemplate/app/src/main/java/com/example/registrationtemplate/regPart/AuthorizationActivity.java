@@ -25,18 +25,17 @@ public class AuthorizationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authoriz_offer);
+        App.setStatus(Status.NO_STATUS);
 
         initialize();
     }
 
     private void startReg() {
-        App.setStatus(Status.Registration);
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
 
     private void startLog() {
-        App.setStatus(Status.Log_in);
         Intent intent = new Intent(this, LogInActivity.class);
         startActivity(intent);
     }

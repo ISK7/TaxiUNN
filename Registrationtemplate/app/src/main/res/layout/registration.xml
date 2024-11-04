@@ -65,6 +65,15 @@
         android:layout_below="@id/name_text_r"
         />
     <TextView
+        android:id="@+id/name_error_r"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignStart="@id/name_view_r"
+        android:layout_below="@id/name_view_r"
+        style="@style/CustomTextNormalRed"
+        android:text=""
+        />
+    <TextView
         android:id="@+id/login_text_r"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,6 +95,15 @@
         android:paddingStart="8dp"
         android:background="@drawable/custom_edit_gray"
         android:layout_below="@id/login_text_r"
+        />
+    <TextView
+        android:id="@+id/log_in_error_r"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignStart="@id/login_view_r"
+        android:layout_below="@id/login_view_r"
+        style="@style/CustomTextNormalRed"
+        android:text=""
         />
     <LinearLayout
         android:layout_width="match_parent"

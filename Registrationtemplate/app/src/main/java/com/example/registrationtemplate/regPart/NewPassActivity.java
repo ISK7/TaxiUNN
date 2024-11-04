@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +15,7 @@ import com.example.registrationtemplate.R;
 public class NewPassActivity extends AppCompatActivity {
 
     EditText e_mail;
+    TextView e_mail_er;
     ImageButton back_but;
     Button sendCode;
     @Override
@@ -36,7 +38,9 @@ public class NewPassActivity extends AppCompatActivity {
     }
 
     private void initialization() {
-        e_mail = findViewById(R.id.email_view_n);
+        e_mail = findViewById(R.id.log_in_view_n);
+
+        e_mail_er = findViewById(R.id.error_email_n);
 
         sendCode = findViewById(R.id.send_but_n);
         sendCode.setOnClickListener(v -> {

@@ -59,13 +59,23 @@
         android:layout_below="@id/code_sended_c"
         />
 
+    <TextView
+        android:id="@+id/error_code_c"
+        android:layout_alignStart="@id/code_c"
+        android:layout_below="@id/code_c"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="@style/CustomTextNormalRed"
+        android:text=""
+        />
+
     <LinearLayout
         android:id="@+id/reg_to_log_component"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="2dp"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/code_c"
+        android:layout_below="@id/error_code_c"
         android:layout_centerHorizontal="true">
     <TextView
         android:id="@+id/code_not_sended_c"

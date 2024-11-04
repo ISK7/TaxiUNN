@@ -21,6 +21,8 @@ public class PasswordActivity extends AppCompatActivity {
     ImageButton back;
     EditText newPassword;
     EditText secondPassword;
+    TextView newPassword_er;
+    TextView secondPassword_er;
     Button done;
     TextView header;
 
@@ -71,7 +73,7 @@ public class PasswordActivity extends AppCompatActivity {
         Status s = App.getStatus();
 
         header = findViewById(R.id.password_title_p);
-        if(s == Status.Log_in)
+        if(s == Status.LOG_IN)
         {
             header.setText(R.string.set_new_password_head);
         }
@@ -84,6 +86,9 @@ public class PasswordActivity extends AppCompatActivity {
 
         newPassword = findViewById(R.id.password_enter_p);
         secondPassword = findViewById(R.id.password_confirm_p);
+
+        newPassword_er = findViewById(R.id.password_first_error_p);
+        secondPassword_er = findViewById(R.id.password_second_error_p);
 
         done = findViewById(R.id.done_but_p);
         done.setOnClickListener(v -> {

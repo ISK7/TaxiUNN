@@ -64,6 +64,15 @@
         android:layout_below="@id/e_mail_text_l"
         />
     <TextView
+        android:id="@+id/error_email_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_view_l"
+        android:layout_alignStart="@id/login_view_l"
+        style="@style/CustomTextNormalRed"
+        android:text=""
+        />
+    <TextView
         android:id="@+id/password_text_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,6 +103,15 @@
             android:paddingStart="8dp"
             />
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/error_pass_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/forget_password_but"
+        android:layout_alignStart="@id/password_view_component"
+        style="@style/CustomTextNormalRed"
+        android:text=""
+        />
 
     <TextView
         android:id="@+id/forget_password_but"

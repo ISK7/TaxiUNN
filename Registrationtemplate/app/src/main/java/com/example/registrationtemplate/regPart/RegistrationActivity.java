@@ -22,6 +22,8 @@ public class RegistrationActivity extends AppCompatActivity {
     ImageButton back;
     EditText name;
     EditText login;
+    TextView name_er;
+    TextView login_er;
     Button reg_but;
     TextView reg_to_log_but;
 
@@ -34,6 +36,8 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
+
+        App.setStatus(Status.REGISTRATION);
         initialization();
     }
 
@@ -60,7 +64,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     //Если пользователь хочет войти в существующий аккаунт
     private void startLog() {
-        App.setStatus(Status.Log_in);
         Intent intent = new Intent(this, LogInActivity.class);
         startActivity(intent);
     }
@@ -87,6 +90,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         name = findViewById(R.id.name_view_r);
         login = findViewById(R.id.login_view_r);
+        name_er = findViewById(R.id.name_error_r);
+        login_er = findViewById(R.id.log_in_error_r);
 
         reg_but = findViewById(R.id.reg_but_r);
         reg_but.setOnClickListener(v -> {

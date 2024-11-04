@@ -59,6 +59,13 @@
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/grey2</item>
     </style>
+    <style name="CustomTextNormalRed">
+        <item name="android:fontFamily">@font/inter_variablefont_opszwght</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">20sp</item>
+        <item name="android:textColor">@color/error</item>
+    </style>
 
     <style name="CustomEditTextLight" parent="Widget.AppCompat.EditText">
         <item name="android:editTextBackground">@color/grey3</item>
