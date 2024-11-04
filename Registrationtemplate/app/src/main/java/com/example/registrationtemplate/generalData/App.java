@@ -27,11 +27,9 @@ public class App extends Application {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //проверка идёт сразу, чтобы лишний раз не загружать объекты
         if(sharedPreferences.getBoolean("isLogged", false)) {
-            setStatus(Status.Using);
             startMain();
         }
         else {
-            setStatus(Status.No_status);
             startAutho();
         }
     }
