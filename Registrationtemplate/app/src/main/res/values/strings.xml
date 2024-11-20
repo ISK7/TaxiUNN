@@ -39,4 +39,5 @@
     <string name="invent_password">Придумайте ваш пароль</string>
     <string name="server_error">Ошибка на стороне сервера</string>
     <string name="passwords_not_equal">Пароли не совпадают!</string>
+    <string name="empty_field_er">Заполните это поле!</string>
 </resources>

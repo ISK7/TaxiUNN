@@ -93,6 +93,10 @@ public class PasswordActivity extends AppCompatActivity {
         });
     }
     private boolean tryToSetPassword() {
+        EditText[] fields = {newPassword, secondPassword};
+        TextView[] error_views = {newPassword_er, secondPassword_er};
+        if(!App.fieldsNotEmpty(fields, error_views))
+            return false;
         String email = sharedPreferences.getString("emailAddress","lost_email");
         String name = sharedPreferences.getString("name",getString(R.string.name_not_found));
         String password = secondPassword.getText().toString();

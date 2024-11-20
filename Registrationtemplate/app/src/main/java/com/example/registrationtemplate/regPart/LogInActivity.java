@@ -69,6 +69,10 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private boolean tryToLogin() {
+        EditText[] fields = {log_in, password};
+        TextView[] error_views = {login_er, password_er};
+        if(!App.fieldsNotEmpty(fields, error_views))
+            return false;
         login log = new login(log_in.getText().toString(),password.getText().toString());
         Call<login_ans> call = App.getServer().getApi().logInAccount(log);
 

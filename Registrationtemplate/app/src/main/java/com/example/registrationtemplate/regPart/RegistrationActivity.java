@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -55,13 +56,12 @@ public class RegistrationActivity extends AppCompatActivity {
         initialization();
     }
 
-//    private boolean fieldsNotEmpty() {
-//        EditText[] fields = {login, name, first_password, second_password};
-//        TextView[] error_views = {login_er, name_er, first_password_er, second_password_er};
-//    }
+
     private boolean tryToReg() {
-        //if(!fieldsNotEmpty())
-        //    return false;
+        EditText[] fields = {login, name, first_password, second_password};
+        TextView[] error_views = {login_er, name_er, first_password_er, second_password_er};
+        if(!App.fieldsNotEmpty(fields, error_views))
+            return false;
         register reg = new register(login.getText().toString(),
                 second_password.getText().toString(),
                 name.getText().toString());

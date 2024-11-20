@@ -4,8 +4,12 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.example.registrationtemplate.R;
 import com.example.registrationtemplate.regPart.AuthorizationActivity;
 import com.example.registrationtemplate.regPart.MainAppActivity;
 import com.example.registrationtemplate.requests.refresh;
@@ -110,5 +114,15 @@ public class App extends Application {
 
     public static Status getStatus() {
         return status;
+    }
+    public static boolean fieldsNotEmpty(EditText[] fields, TextView[] error_views) {
+        boolean ans = true;
+        for(int i = 0; i < fields.length; i++) {
+            if(TextUtils.isEmpty(fields[i].getText().toString())){
+                error_views[i].setText(R.string.empty_field_er);
+                ans = false;
+            }
+        }
+        return ans;
     }
 }

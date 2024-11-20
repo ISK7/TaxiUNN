@@ -41,6 +41,10 @@ public class NewPassActivity extends AppCompatActivity {
     }
 
     private boolean tryToSend() {
+        EditText[] fields = {e_mail};
+        TextView[] error_views = {e_mail_er};
+        if(!App.fieldsNotEmpty(fields, error_views))
+            return false;
         recover recover = new recover(e_mail.getText().toString());
         Call<default_success_ans> call = App.getServer().getApi().recoverPassword(recover);
 
