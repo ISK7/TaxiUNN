@@ -80,12 +80,12 @@
         android:text="@string/enter_password"
         android:textAlignment="textStart"
         android:layout_marginTop="22dp"
-        android:layout_marginStart="40dp"
+        android:layout_alignStart="@id/password_view_component_l"
         android:layout_below="@id/login_view_l"
         />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_view_component"
+        android:id="@+id/password_view_component_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
@@ -107,8 +107,8 @@
         android:id="@+id/error_pass_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/forget_password_but"
-        android:layout_alignStart="@id/password_view_component"
+        android:layout_below="@id/password_view_component_l"
+        android:layout_alignStart="@id/password_view_component_l"
         style="@style/CustomTextNormalRed"
         android:text=""
         />
@@ -117,12 +117,12 @@
         android:id="@+id/forget_password_but"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginTop="0dp"
+        android:layout_alignStart="@id/password_view_component_l"
         android:clickable="true"
         style="@style/CustomTextNormalGray"
         android:text="@string/forget_password"
-        android:layout_below="@id/password_view_component"
+        android:layout_below="@id/error_pass_l"
         />
 
     <Button

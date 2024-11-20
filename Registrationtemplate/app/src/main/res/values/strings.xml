@@ -26,7 +26,7 @@
     <string name="confirm">Подтвердить</string>
     <string name="set_password_head">Установите пароль</string>
     <string name="set_new_password_head">Установите новый пароль</string>
-    <string name="password_must">Пароль никому ничего не должен</string>
+    <string name="password_must">Пароль должен содержать не менее 8 знаков</string>
     <string name="enter_password">Введите пароль</string>
     <string name="confirm_password">Подтвердите пароль</string>
     <string name="second_password">Повторный пароль</string>
@@ -37,4 +37,6 @@
     <string name="log_out">Выйти</string>
     <string name="name_not_found">Имя не найдено</string>
     <string name="invent_password">Придумайте ваш пароль</string>
+    <string name="server_error">Ошибка на стороне сервера</string>
+    <string name="passwords_not_equal">Пароли не совпадают!</string>
 </resources>
