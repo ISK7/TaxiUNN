@@ -36,6 +36,7 @@ public class MainAppActivity extends AppCompatActivity {
         regEditor.putBoolean("isLogged",true);
         regEditor.commit();
 
+        App.Refresh();
         logout_but = findViewById(R.id.log_out_but);
         logout_but.setOnClickListener(v -> {
             regEditor.putBoolean("isLogged",false);

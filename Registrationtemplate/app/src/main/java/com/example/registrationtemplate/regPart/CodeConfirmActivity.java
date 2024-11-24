@@ -103,24 +103,25 @@ public class CodeConfirmActivity extends AppCompatActivity {
 
     private void incorrectCode(Response<default_success_ans> response) {
         Gson gson = new Gson();
-        error_verify errorResponse = null;
-
-        try {
-            // Парсим ошибку в зависимости от тела ответа
-            String errorBody = response.errorBody().string();
-            errorResponse = gson.fromJson(errorBody, error_verify.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (errorResponse != null) {
-            // Логируем или обрабатываем ошибку
-            String erResponse = errorResponse.getFirstEmailErr();
-            if(erResponse.equals("")) {
-                erResponse = errorResponse.getFirstCodeErr();
+        if(App.getStatus() == Status.REGISTRATION) {
+            error_verify errorResponse = null;
+            try {
+                // Парсим ошибку в зависимости от тела ответа
+                String errorBody = response.errorBody().string();
+                errorResponse = gson.fromJson(errorBody, error_verify.class);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            Log.e("Error", "Description: " + erResponse);
-            code_er.setText(errorResponse.getFirstCodeErr());
+
+            if (errorResponse != null) {
+                // Логируем или обрабатываем ошибку
+                String erResponse = errorResponse.getFirstEmailErr();
+                if (erResponse.equals("")) {
+                    erResponse = errorResponse.getFirstCodeErr();
+                }
+                Log.e("Error", "Description: " + erResponse);
+                code_er.setText(errorResponse.getFirstCodeErr());
+            }
         }
     }
 
