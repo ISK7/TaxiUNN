@@ -55,6 +55,14 @@ public class CodeInputView extends LinearLayout {
                 @Override
                 public void afterTextChanged(Editable s) {}
             });
+            editTexts[i].setOnFocusChangeListener(new OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus) {
+                        editTexts[findFirstEmpty()].requestFocus();
+                    }
+                }
+            });
         }
     }
 
@@ -66,11 +74,20 @@ public class CodeInputView extends LinearLayout {
         return code.toString();
     }
 
-    public void clear() {
+    private void clear() {
         for (EditText editText : editTexts) {
             editText.setText("");
         }
         editTexts[0].requestFocus();
+    }
+
+    private int findFirstEmpty() {
+        for(int i = 0; i < editTexts.length; i++) {
+            if(editTexts[i].getText().toString().isEmpty()) {
+                return i;
+            }
+        }
+        return editTexts.length - 1;
     }
 
     //Обработка нажатия backspace
@@ -83,9 +100,6 @@ public class CodeInputView extends LinearLayout {
                 } else {
                     editTexts[i].setText(""); // Если первый элемент, просто очищаем
                 }
-                break;
-            } else if (editTexts[i].getText().toString().isEmpty()) {
-                editTexts[i].requestFocus(); // Перейти к первому пустому элементу
                 break;
             }
         }
