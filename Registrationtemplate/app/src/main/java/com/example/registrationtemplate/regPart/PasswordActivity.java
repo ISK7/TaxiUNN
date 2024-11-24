@@ -63,7 +63,11 @@ public class PasswordActivity extends AppCompatActivity {
     }
 
     private void back() {
-        finish();
+        startLog();
+    }
+    private void startLog() {
+        Intent intent = new Intent(this, LogInActivity.class);
+        startActivity(intent);
     }
 
     private void enqueueCall(Call<default_success_ans> call) {
