@@ -16,6 +16,7 @@ import com.example.registrationtemplate.R;
 import com.example.registrationtemplate.generalData.App;
 import com.example.registrationtemplate.generalData.Status;
 import com.example.registrationtemplate.requests.login;
+import com.example.registrationtemplate.responses.default_error_request;
 import com.example.registrationtemplate.responses.error_login;
 import com.example.registrationtemplate.responses.login_ans;
 import com.example.registrationtemplate.responses.refresh_ans;

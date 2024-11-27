@@ -152,8 +152,8 @@
                 android:layout_width="wrap_content"
                 android:layout_alignStart="@id/password_view_component_r"
                 android:layout_below="@id/password_view_component_r"
-                style="@style/CustomTextNormalRed"
-                android:text=""
+                style="@style/CustomTextSmallGrey"
+                android:text="@string/password_must"
                 />
             <TextView
                 android:id="@+id/password_confirm_text_r"
