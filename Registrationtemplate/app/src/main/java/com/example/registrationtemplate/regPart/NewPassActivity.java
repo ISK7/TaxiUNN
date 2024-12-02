@@ -3,10 +3,10 @@ package com.example.registrationtemplate.regPart;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.registrationtemplate.R;
 import com.example.registrationtemplate.generalData.App;
 import com.example.registrationtemplate.requests.recover;
-import com.example.registrationtemplate.responses.default_success_ans;
-import com.example.registrationtemplate.responses.error_login;
-import com.example.registrationtemplate.responses.error_recovery;
-import com.example.registrationtemplate.responses.login_ans;
+import com.example.registrationtemplate.responses.Ans_password_recovery;
+import com.example.registrationtemplate.responses.Ans_password_recovery_er;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -31,8 +29,13 @@ public class NewPassActivity extends AppCompatActivity {
 
     EditText e_mail;
     TextView e_mail_er;
-    ImageButton back_but;
+    Button back_but;
     Button sendCode;
+    //Общие для всего приложения настройки
+    SharedPreferences sharedPreferences;
+
+    //Объект для изменения общих настроек
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +48,19 @@ public class NewPassActivity extends AppCompatActivity {
         TextView[] error_views = {e_mail_er};
         if(!App.fieldsNotEmpty(fields, error_views))
             return false;
-        recover recover = new recover(e_mail.getText().toString());
-        Call<default_success_ans> call = App.getServer().getApi().recoverPassword(recover);
 
-        call.enqueue(new Callback<default_success_ans>() {
+        editor.putString("temporaryEmail", e_mail.getText().toString());
+        editor.commit();
+
+        recover recover = new recover(e_mail.getText().toString());
+        Call<Ans_password_recovery> call = App.getServer().getApi().recoverPassword(recover);
+
+        call.enqueue(new Callback<Ans_password_recovery>() {
             @Override
-            public void onResponse(Call<default_success_ans> call, Response<default_success_ans> response) {
+            public void onResponse(Call<Ans_password_recovery> call, Response<Ans_password_recovery> response) {
                 if (response.isSuccessful()) {
                     // Обрабатываем успешный ответ, который вернется как SuccessResponse
-                    default_success_ans successResponse = response.body();
+                    Ans_password_recovery successResponse = response.body();
                     if (successResponse != null) {
                         // Выполнение логики с данными
                         Log.d("Success", "Message: " + successResponse.getMessage());
@@ -66,7 +73,7 @@ public class NewPassActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<default_success_ans> call, Throwable t) {
+            public void onFailure(Call<Ans_password_recovery> call, Throwable t) {
                 Log.e("Error", t.getMessage());
                 e_mail_er.setText(R.string.server_error);
             }
@@ -74,22 +81,27 @@ public class NewPassActivity extends AppCompatActivity {
         return true;
     }
 
-    private void incorrectEmail(Response<default_success_ans> response) {
+    private void incorrectEmail(Response<Ans_password_recovery> response) {
         Gson gson = new Gson();
-        error_recovery errorResponse = null;
+        Ans_password_recovery_er errorResponse = null;
 
         try {
             // Парсим ошибку в зависимости от тела ответа
             String errorBody = response.errorBody().string();
-            errorResponse = gson.fromJson(errorBody, error_recovery.class);
+            errorResponse = gson.fromJson(errorBody, Ans_password_recovery_er.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         if (errorResponse != null) {
-            // Логируем или обрабатываем ошибку
-            Log.e("Error", "Error: " + errorResponse.getFirstEmailErr());
-            e_mail_er.setText(errorResponse.getFirstEmailErr());
+            if(errorResponse.getEmail() != null) {
+                // Логируем или обрабатываем ошибку
+                Log.e("Error", "Error: " + errorResponse.getEmail()[0]);
+                e_mail_er.setText(errorResponse.getEmail()[0]);
+            }
+        }
+        else {
+            e_mail_er.setText("error not parsed");
         }
     }
 
@@ -113,5 +125,8 @@ public class NewPassActivity extends AppCompatActivity {
 
         back_but = findViewById(R.id.newp_back_but);
         back_but.setOnClickListener(v -> back());
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
     }
 }

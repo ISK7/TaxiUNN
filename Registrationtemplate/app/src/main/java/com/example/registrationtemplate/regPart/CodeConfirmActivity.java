@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,13 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.registrationtemplate.R;
 import com.example.registrationtemplate.generalData.App;
 import com.example.registrationtemplate.generalData.Status;
+import com.example.registrationtemplate.requests.recover;
+import com.example.registrationtemplate.requests.recover_verify;
 import com.example.registrationtemplate.requests.reg_verify;
-import com.example.registrationtemplate.requests.change;
-import com.example.registrationtemplate.responses.default_success_ans;
-import com.example.registrationtemplate.responses.error_login;
-import com.example.registrationtemplate.responses.error_recovery;
-import com.example.registrationtemplate.responses.error_verify;
-import com.example.registrationtemplate.responses.login_ans;
+import com.example.registrationtemplate.responses.Ans_password_recovery;
+import com.example.registrationtemplate.responses.Ans_password_recovery_er;
+import com.example.registrationtemplate.responses.Ans_password_recovery_verify;
+import com.example.registrationtemplate.responses.Ans_password_recovery_verify_er;
+import com.example.registrationtemplate.responses.Ans_register_verify;
+import com.example.registrationtemplate.responses.Ans_register_verify_er;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ import retrofit2.Response;
 //Активность для проверки кода подтверждения
 public class CodeConfirmActivity extends AppCompatActivity {
 
-    ImageButton back;
+    Button back;
     Button confirm;
     TextView send_again;
 
@@ -56,16 +57,47 @@ public class CodeConfirmActivity extends AppCompatActivity {
     }
 
     private void sendAgain() {
-        tryToConfirm();
-    }
+        String email = sharedPreferences.getString("temporaryEmail",null);
+        if (email == null) {
+            Log.e("Error", "Temporary Email is null!");
+            code_er.setText(getText(R.string.unsupported_er));
+            return;
+        }
 
-    private void enqueueCall(Call<default_success_ans> call) {
-        call.enqueue(new Callback<default_success_ans>() {
+        recover recover = new recover(email);
+        Call<Ans_password_recovery> call = App.getServer().getApi().recoverPassword(recover);
+
+        call.enqueue(new Callback<Ans_password_recovery>() {
             @Override
-            public void onResponse(@NonNull Call<default_success_ans> call, @NonNull Response<default_success_ans> response) {
+            public void onResponse(Call<Ans_password_recovery> call, Response<Ans_password_recovery> response) {
                 if (response.isSuccessful()) {
                     // Обрабатываем успешный ответ, который вернется как SuccessResponse
-                    default_success_ans successResponse = response.body();
+                    Ans_password_recovery successResponse = response.body();
+                    if (successResponse != null) {
+                        // Выполнение логики с данными
+                        Log.d("Success", "Message: " + successResponse.getMessage());
+                    }
+                } else {
+                    // Обрабатываем ошибку
+                    incorrectEmail(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ans_password_recovery> call, Throwable t) {
+                Log.e("Error", t.getMessage());
+                code_er.setText(R.string.server_error);
+            }
+        });
+    }
+
+    private void enqueueRegCall(Call<Ans_register_verify> call) {
+        call.enqueue(new Callback<Ans_register_verify>() {
+            @Override
+            public void onResponse(@NonNull Call<Ans_register_verify> call, @NonNull Response<Ans_register_verify> response) {
+                if (response.isSuccessful()) {
+                    // Обрабатываем успешный ответ, который вернется как SuccessResponse
+                    Ans_register_verify successResponse = response.body();
                     if (successResponse != null) {
                         // Выполнение логики с данными
                         Log.d("Success", "Message: " + successResponse.getMessage());
@@ -78,50 +110,142 @@ public class CodeConfirmActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<default_success_ans> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Ans_register_verify> call, @NonNull Throwable t) {
                 // Ошибка сети или что-то другое
                 Log.e("Error", Objects.requireNonNull(t.getMessage()));
                 code_er.setText(R.string.server_error);
             }
         });
     }
+
+    private void enqueueRecCall(Call<Ans_password_recovery_verify> call) {
+        call.enqueue(new Callback<Ans_password_recovery_verify>() {
+            @Override
+            public void onResponse(@NonNull Call<Ans_password_recovery_verify> call, @NonNull Response<Ans_password_recovery_verify> response) {
+                if (response.isSuccessful()) {
+                    // Обрабатываем успешный ответ, который вернется как SuccessResponse
+                    Ans_password_recovery_verify successResponse = response.body();
+                    if (successResponse != null) {
+                        // Выполнение логики с данными
+                        Log.d("Success", "Message: " + successResponse.getMessage());
+                        startPassword();
+                    }
+                } else {
+                    // Обрабатываем ошибку
+                    incorrectCode(response);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Ans_password_recovery_verify> call, @NonNull Throwable t) {
+                // Ошибка сети или что-то другое
+                Log.e("Error", Objects.requireNonNull(t.getMessage()));
+                code_er.setText(R.string.server_error);
+            }
+        });
+    }
+
+
     private boolean tryToConfirm() {
         String email = sharedPreferences.getString("emailAddress","lost_email");
         String code_str = code.getCode();
+        if (code_str.length() != 5) {
+            code_er.setText(R.string.no_code_er);
+            return false;
+        }
         if(App.getStatus() == Status.REGISTRATION) {
             reg_verify act = new reg_verify(email,code_str);
-            Call<default_success_ans> call = App.getServer().getApi().activateAccount(act);
-            enqueueCall(call);
+            Call<Ans_register_verify> call = App.getServer().getApi().activateAccount(act);
+            enqueueRegCall(call);
         }
         else {
-            change change = new change(email, code_str);
-            Call<default_success_ans> call = App.getServer().getApi().changePassword(change);
-            enqueueCall(call);
+            recover_verify ver = new recover_verify (email, code_str);
+            Call<Ans_password_recovery_verify> call = App.getServer().getApi().recoverVerify(ver);
+            enqueueRecCall(call);
         }
         return true;
     }
 
-    private void incorrectCode(Response<default_success_ans> response) {
+
+    private void incorrectCode(Object response) {
         Gson gson = new Gson();
         if(App.getStatus() == Status.REGISTRATION) {
-            error_verify errorResponse = null;
+            Ans_register_verify_er errorResponse = null;
             try {
                 // Парсим ошибку в зависимости от тела ответа
-                String errorBody = response.errorBody().string();
-                errorResponse = gson.fromJson(errorBody, error_verify.class);
+                String errorBody = ((Response<Ans_register_verify_er>)response).errorBody().string();
+                errorResponse = gson.fromJson(errorBody, Ans_register_verify_er.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (errorResponse != null) {
+                // Логируем или обрабатываем ошибку
+                String erResponse = "";
+                if(errorResponse.getEmail() != null) {
+                    erResponse += errorResponse.getEmail()[0] + "   ";
+                    code_er.setText(errorResponse.getEmail()[0]);
+                }
+                if(errorResponse.getVerification_code() != null) {
+                    erResponse += errorResponse.getVerification_code()[0];
+                    code_er.setText(errorResponse.getVerification_code()[0]);
+                }
+                Log.e("Error", "Description: " + erResponse);
+            }
+            else {
+                code_er.setText("error not parsed");
+            }
+        }
+        else {
+            Ans_password_recovery_verify_er errorResponse = null;
+            try {
+                // Парсим ошибку в зависимости от тела ответа
+                String errorBody = ((Response<Ans_password_recovery_verify_er>)response).errorBody().string();
+                errorResponse = gson.fromJson(errorBody, Ans_password_recovery_verify_er.class);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             if (errorResponse != null) {
                 // Логируем или обрабатываем ошибку
-                String erResponse = errorResponse.getFirstEmailErr();
-                if (erResponse.equals("")) {
-                    erResponse = errorResponse.getFirstCodeErr();
+                String erResponse = "";
+                if(errorResponse.getEmail() != null) {
+                    erResponse += errorResponse.getEmail()[0] + "   ";
+                    code_er.setText(errorResponse.getEmail()[0]);
+                }
+                if(errorResponse.getVerification_code() != null) {
+                    erResponse += errorResponse.getVerification_code()[0];
+                    code_er.setText(errorResponse.getVerification_code()[0]);
                 }
                 Log.e("Error", "Description: " + erResponse);
-                code_er.setText(errorResponse.getFirstCodeErr());
             }
+            else {
+                code_er.setText("error not parsed");
+            }
+        }
+    }
+
+    private void incorrectEmail(Response<Ans_password_recovery> response) {
+        Gson gson = new Gson();
+        Ans_password_recovery_er errorResponse = null;
+
+        try {
+            // Парсим ошибку в зависимости от тела ответа
+            String errorBody = response.errorBody().string();
+            errorResponse = gson.fromJson(errorBody, Ans_password_recovery_er.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (errorResponse != null) {
+            if(errorResponse.getEmail() != null) {
+                // Логируем или обрабатываем ошибку
+                Log.e("Error", "Error: " + errorResponse.getEmail()[0]);
+                code_er.setText(errorResponse.getEmail()[0]);
+            }
+        }
+        else {
+            code_er.setText("error not parsed");
         }
     }
 

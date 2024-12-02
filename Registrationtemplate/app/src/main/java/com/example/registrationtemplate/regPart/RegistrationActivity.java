@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +17,8 @@ import com.example.registrationtemplate.R;
 import com.example.registrationtemplate.generalData.App;
 import com.example.registrationtemplate.generalData.Status;
 import com.example.registrationtemplate.requests.register;
-import com.example.registrationtemplate.responses.default_success_ans;
-import com.example.registrationtemplate.responses.error_login;
-import com.example.registrationtemplate.responses.error_reg;
+import com.example.registrationtemplate.responses.Ans_register;
+import com.example.registrationtemplate.responses.Ans_register_er;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -32,7 +30,7 @@ import retrofit2.Response;
 //Активность для регистрации нового аккаунта
 public class RegistrationActivity extends AppCompatActivity {
 
-    ImageButton back;
+    Button back;
     EditText first_password, second_password;
     EditText login;
     EditText name;
@@ -41,12 +39,13 @@ public class RegistrationActivity extends AppCompatActivity {
     TextView name_er;
     Button reg_but;
     TextView reg_to_log_but;
+    CheckBox politics_check;
+    TextView politics_view;
 
     //Общие для всего приложения настройки
     SharedPreferences sharedPreferences;
     //Объект для изменения общих настроек
     SharedPreferences.Editor editor;
-    CheckBox politics_check;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,15 +61,24 @@ public class RegistrationActivity extends AppCompatActivity {
         TextView[] error_views = {login_er, name_er, first_password_er, second_password_er};
         if(!App.fieldsNotEmpty(fields, error_views))
             return false;
-        register reg = new register(login.getText().toString(),
-                second_password.getText().toString(),
-                name.getText().toString());
+        if(!first_password.getText().toString().equals(second_password.getText().toString())) {
+            second_password_er.setText(R.string.passwords_not_equal);
+            return false;
+        }
 
-        Call<default_success_ans> call = App.getServer().getApi().registerClient(reg);
+        String req_login = login.getText().toString();
+        String req_password = second_password.getText().toString();
+        String req_name = name.getText().toString();
 
-        call.enqueue(new Callback<default_success_ans>() {
+        register reg = new register(req_login,
+                req_password,
+                req_name);
+
+        Call<Ans_register> call = App.getServer().getApi().registerClient(reg);
+
+        call.enqueue(new Callback<Ans_register>() {
             @Override
-            public void onResponse(Call<default_success_ans> call, Response<default_success_ans> response) {
+            public void onResponse(Call<Ans_register> call, Response<Ans_register> response) {
                 if(response.isSuccessful()) {
                     correctReg();
                 }
@@ -80,31 +88,38 @@ public class RegistrationActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<default_success_ans> call, Throwable t) {
+            public void onFailure(Call<Ans_register> call, Throwable t) {
                 Log.e("Error", t.getMessage());
                 second_password_er.setText(R.string.server_error);
             }
         });
         return true;
     }
-    private void incorrectReg(Response<default_success_ans> response) {
+    private void incorrectReg(Response<Ans_register> response) {
         Gson gson = new Gson();
-        error_reg errorResponse = null;
+        Ans_register_er errorResponse = null;
 
         try {
             // Парсим ошибку в зависимости от тела ответа
             String errorBody = response.errorBody().string();
-            errorResponse = gson.fromJson(errorBody, error_reg.class);
+            errorResponse = gson.fromJson(errorBody, Ans_register_er.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         if (errorResponse != null) {
             // Логируем или обрабатываем ошибку
-            Log.e("Error", "Error: " + errorResponse.getFirstEmailErr());
-            login_er.setText(errorResponse.getFirstEmailErr());
-            Log.e("Error", "Description: " + errorResponse.getFirstPasswordErr());
-            second_password_er.setText(errorResponse.getFirstPasswordErr());
+            if(errorResponse.getEmail() != null) {
+                Log.e("Error", "Error: " + errorResponse.getEmail()[0]);
+                login_er.setText(errorResponse.getEmail()[0]);
+            }
+            if(errorResponse.getPassword() != null) {
+                Log.e("Error", "Description: " + errorResponse.getPassword()[0]);
+                second_password_er.setText(errorResponse.getPassword()[0]);
+            }
+        }
+        else {
+            login_er.setText("error not parsed");
         }
     }
     private void correctReg() {
@@ -164,6 +179,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
         politics_check = findViewById(R.id.politics_check_box_r);
         politics_check.setOnClickListener(v -> checkChange());
+
+        politics_view = findViewById(R.id.politics_text_link_r);
+        politics_view.setClickable(true);
+        politics_view.setMovementMethod(LinkMovementMethod.getInstance());
 
         reg_to_log_but = findViewById(R.id.reg_to_log_but);
         reg_to_log_but.setOnClickListener(v -> startLog());

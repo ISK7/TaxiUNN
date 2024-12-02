@@ -13,7 +13,7 @@ import com.example.registrationtemplate.R;
 import com.example.registrationtemplate.regPart.AuthorizationActivity;
 import com.example.registrationtemplate.regPart.MainAppActivity;
 import com.example.registrationtemplate.requests.refresh;
-import com.example.registrationtemplate.responses.refresh_ans;
+import com.example.registrationtemplate.responses.Ans_refresh;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +40,8 @@ public class App extends Application {
     private void init() {
         //Общие для всего приложения настройки
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        server = new Server();
+        setAccessToken("{{token}}");
         //проверка идёт сразу, чтобы лишний раз не загружать объекты
         if(sharedPreferences.getBoolean("isLogged", false)) {
             startMain();
@@ -81,17 +83,17 @@ public class App extends Application {
     public static void Refresh() {
         refresh refresh = new refresh(RefreshToken);
 
-        Call<refresh_ans> call = getServer().getApi().refreshToken(refresh);
-        call.enqueue(new Callback<refresh_ans>() {
+        Call<Ans_refresh> call = getServer().getApi().refreshToken(refresh);
+        call.enqueue(new Callback<Ans_refresh>() {
             @Override
-            public void onResponse(Call<refresh_ans> call, Response<refresh_ans> response) {
+            public void onResponse(Call<Ans_refresh> call, Response<Ans_refresh> response) {
                 if (response.isSuccessful()) {
                     // Обрабатываем успешный ответ, который вернется как SuccessResponse
-                    refresh_ans successResponse = response.body();
+                    Ans_refresh successResponse = response.body();
                     if (successResponse != null) {
                         // Выполнение логики с данными
-                        Log.d("Success", "Message: " + successResponse.getRefresh_token());
-                        setAccessToken(successResponse.getRefresh_token());
+                        Log.d("Success", "Message: " + successResponse.getAccess());
+                        setAccessToken(successResponse.getAccess());
                     }
                 } else {
                     // Обрабатываем ошибку
@@ -101,7 +103,7 @@ public class App extends Application {
             }
 
             @Override
-            public void onFailure(Call<refresh_ans> call, Throwable t) {
+            public void onFailure(Call<Ans_refresh> call, Throwable t) {
                 // Ошибка сети или что-то другое
                 Log.e("Error", t.getMessage());
             }
@@ -120,7 +122,11 @@ public class App extends Application {
         for(int i = 0; i < fields.length; i++) {
             if(TextUtils.isEmpty(fields[i].getText().toString())){
                 error_views[i].setText(R.string.empty_field_er);
+                error_views[i].setTextAppearance(R.style.CustomTextNormalRed);
                 ans = false;
+            }
+            else {
+                error_views[i].setText("");
             }
         }
         return ans;

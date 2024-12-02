@@ -1,39 +1,40 @@
 package com.example.registrationtemplate.generalData;
 
 import com.example.registrationtemplate.requests.*;
-import com.example.registrationtemplate.responses.default_success_ans;
-import com.example.registrationtemplate.responses.get_clients_ans;
-import com.example.registrationtemplate.responses.login_ans;
-import com.example.registrationtemplate.responses.refresh_ans;
+import com.example.registrationtemplate.responses.Ans_delete_clients;
+import com.example.registrationtemplate.responses.Ans_get_clients;
+import com.example.registrationtemplate.responses.Ans_login;
+import com.example.registrationtemplate.responses.Ans_password_recovery;
+import com.example.registrationtemplate.responses.Ans_password_recovery_change;
+import com.example.registrationtemplate.responses.Ans_password_recovery_verify;
+import com.example.registrationtemplate.responses.Ans_refresh;
+import com.example.registrationtemplate.responses.Ans_register;
+import com.example.registrationtemplate.responses.Ans_register_verify;
 
-import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface TaxiApi {
-    @POST("clients/auth/register/verify")
-    Call<default_success_ans> activateAccount(@Body reg_verify regverify);
-    @POST("clients/auth/password-recovery/change")
-    Call<default_success_ans> changePassword(@Body change change);
-
+    @POST("clients/auth/activate")
+    Call<Ans_register_verify> activateAccount(@Body reg_verify regverify);
     @POST("clients/auth/login")
-    Call<login_ans> logInAccount(@Body login login);
+    Call<Ans_login> logInAccount(@Body login login);
     @POST("clients/auth/password-recovery")
-    Call<default_success_ans> recoverPassword(@Body recover recover);
+    Call<Ans_password_recovery> recoverPassword(@Body recover recover);
     @POST("clients/auth/register")
-    Call<default_success_ans> registerClient(@Body register register);
-
+    Call<Ans_register> registerClient(@Body register register);
     @POST("clients/auth/refresh")
-    Call<refresh_ans> refreshToken(@Body refresh refresh);
+    Call<Ans_refresh> refreshToken(@Body refresh refresh);
     @POST("clients/auth/password-recovery/verify")
-    Call<default_success_ans> recoverVerify(@Body recover_verify recover_verify);
+    Call<Ans_password_recovery_verify> recoverVerify(@Body recover_verify recover_verify);
     @POST("clients/auth/password-recovery/change")
-    Call<default_success_ans> recoverChange(@Body recover_change recover_change);
+    Call<Ans_password_recovery_change> recoverChange(@Body recover_change recover_change);
     @GET("clients")
-    Call<default_success_ans> getClients();
+    Call<Ans_get_clients> getClients();
     @DELETE("clients")
-    Call<default_success_ans> deleteClient();
+    Call<Ans_delete_clients> deleteClient();
 }

@@ -1,7 +1,16 @@
 package com.example.registrationtemplate.responses;
 
-public class get_clients_ans {
+public class Ans_get_clients {
+    String message;
     String detail;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public String getDetail() {
         return detail;

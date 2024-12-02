@@ -94,11 +94,14 @@ public class CodeInputView extends LinearLayout {
     public void handleBackPress() {
         for (int i = editTexts.length - 1; i >= 0; i--) {
             if (editTexts[i].isFocused()) {
-                if (i > 0) {
-                    editTexts[i].setText(""); // Удаляем цифру
+                if (i > 0 && i < 4) {
+                    editTexts[i - 1].setText(""); // Удаляем цифру
+                    editTexts[i - 1].requestFocus(); // Переход к предыдущему полю
+                } else if(i == 4 && editTexts[i].getText().toString().isEmpty()) {
+                    editTexts[i - 1].setText(""); //Если последнее поле пустое
                     editTexts[i - 1].requestFocus(); // Переход к предыдущему полю
                 } else {
-                    editTexts[i].setText(""); // Если первый элемент, просто очищаем
+                    editTexts[i].setText(""); // Если первый или последний элемент, просто очищаем
                 }
                 break;
             }

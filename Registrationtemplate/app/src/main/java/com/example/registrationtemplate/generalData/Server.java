@@ -3,7 +3,6 @@ package com.example.registrationtemplate.generalData;
 import androidx.annotation.NonNull;
 
 import java.io.IOException;
-import java.net.URL;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -13,7 +12,6 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.HEAD;
 
 //Класс для работы с сервером
 public class Server {
@@ -24,10 +22,11 @@ public class Server {
         Retrofit retrofit = createRetrofit();
         api = retrofit.create(TaxiApi.class);
     }
+    //private final static String host = "redis";
+    private final static String host = "10.0.2.2";
+    private final static Integer port = 8000;
+    private final static String link = "http://" + host + ":" + port + "/";
 
-    private final static String link = "https://virtserver.swaggerhub.com/vinicuktimofei/taxiUNN/1.0.0/";
-
-    private final static int port = 8080;
 
     private OkHttpClient createOkHttpClient() {
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
