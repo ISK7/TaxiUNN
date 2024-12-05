@@ -101,7 +101,7 @@ public class CodeConfirmActivity extends AppCompatActivity {
                     if (successResponse != null) {
                         // Выполнение логики с данными
                         Log.d("Success", "Message: " + successResponse.getMessage());
-                        startPassword();
+                        startNext();
                     }
                 } else {
                     // Обрабатываем ошибку
@@ -128,7 +128,7 @@ public class CodeConfirmActivity extends AppCompatActivity {
                     if (successResponse != null) {
                         // Выполнение логики с данными
                         Log.d("Success", "Message: " + successResponse.getMessage());
-                        startPassword();
+                        startNext();
                     }
                 } else {
                     // Обрабатываем ошибку
@@ -254,7 +254,7 @@ public class CodeConfirmActivity extends AppCompatActivity {
         }
     }
 
-    private void startPassword() {
+    private void startNext() {
         if(App.getStatus() == Status.REGISTRATION) {
             Intent intent = new Intent(this, LogInActivity.class);
             startActivity(intent);
