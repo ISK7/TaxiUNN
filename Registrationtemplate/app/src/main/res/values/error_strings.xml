@@ -8,4 +8,6 @@
     <string name="incorrect_password_er">Invalid credentials.</string>
     <string name="refresh_code_inactive_er">Refresh code is not active.</string>
     <string name="try_again_er">Try again.</string>
+    <string name="not_valid_email_er">Enter a valid email address.</string>
+    <string name="not_active_code_er">The verification code is not active.</string>
 </resources>

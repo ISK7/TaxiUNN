@@ -183,17 +183,19 @@ public class CodeConfirmActivity extends AppCompatActivity {
                 // Логируем или обрабатываем ошибку
                 String erResponse = "";
                 if(errorResponse.getEmail() != null) {
+                    String error = App.parseError(errorResponse.getEmail()[0]);
                     erResponse += errorResponse.getEmail()[0] + "   ";
-                    code_er.setText(errorResponse.getEmail()[0]);
+                    code_er.setText(error);
                 }
                 if(errorResponse.getVerification_code() != null) {
+                    String error = App.parseError(errorResponse.getVerification_code()[0]);
                     erResponse += errorResponse.getVerification_code()[0];
-                    code_er.setText(errorResponse.getVerification_code()[0]);
+                    code_er.setText(error);
                 }
                 Log.e("Error", "Description: " + erResponse);
             }
             else {
-                code_er.setText("error not parsed");
+                code_er.setText(R.string.unsupported_er);
             }
         }
         else {
@@ -210,17 +212,19 @@ public class CodeConfirmActivity extends AppCompatActivity {
                 // Логируем или обрабатываем ошибку
                 String erResponse = "";
                 if(errorResponse.getEmail() != null) {
+                    String error = App.parseError(errorResponse.getEmail()[0]);
                     erResponse += errorResponse.getEmail()[0] + "   ";
-                    code_er.setText(errorResponse.getEmail()[0]);
+                    code_er.setText(error);
                 }
                 if(errorResponse.getVerification_code() != null) {
-                    erResponse += errorResponse.getVerification_code()[0];
-                    code_er.setText(errorResponse.getVerification_code()[0]);
+                    String error = App.parseError(errorResponse.getVerification_code()[0]);
+                    erResponse += (errorResponse.getVerification_code()[0]);
+                    code_er.setText(error);
                 }
-                Log.e("Error", "Description: " + erResponse);
+                Log.e("Error", "Description: " + (erResponse));
             }
             else {
-                code_er.setText("error not parsed");
+                code_er.setText(R.string.unsupported_er);
             }
         }
     }
@@ -240,12 +244,13 @@ public class CodeConfirmActivity extends AppCompatActivity {
         if (errorResponse != null) {
             if(errorResponse.getEmail() != null) {
                 // Логируем или обрабатываем ошибку
+                String error = App.parseError(errorResponse.getEmail()[0]);
                 Log.e("Error", "Error: " + errorResponse.getEmail()[0]);
-                code_er.setText(errorResponse.getEmail()[0]);
+                code_er.setText(error);
             }
         }
         else {
-            code_er.setText("error not parsed");
+            code_er.setText(R.string.unsupported_er);
         }
     }
 

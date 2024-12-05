@@ -98,6 +98,8 @@ public class PasswordActivity extends AppCompatActivity {
             secondPassword_er.setText(R.string.passwords_not_equal);
             return false;
         }
+        if(!App.isPasswordValid(newPassword, newPassword_er))
+            return false;
         String email = sharedPreferences.getString("emailAddress","lost_email");
         String name = sharedPreferences.getString("name",getString(R.string.name_not_found));
         String password = secondPassword.getText().toString();
@@ -131,16 +133,18 @@ public class PasswordActivity extends AppCompatActivity {
         if (errorResponse != null) {
             // Логируем или обрабатываем ошибку
             if (errorResponse.getEmail() != null) {
+                String error = App.parseError(errorResponse.getEmail()[0]);
                 Log.e("Error", "Description: " + errorResponse.getEmail()[0]);
-                secondPassword_er.setText(errorResponse.getEmail()[0]);
+                secondPassword_er.setText(error);
             }
             if (errorResponse.getPassword() != null) {
+                String error = App.parseError(errorResponse.getPassword()[0]);
                 Log.e("Error", "Description: " + errorResponse.getPassword()[0]);
-                secondPassword_er.setText(errorResponse.getPassword()[0]);
+                secondPassword_er.setText(error);
             }
         }
         else {
-            newPassword_er.setText("error not parsed");
+            newPassword_er.setText(R.string.unsupported_er);
         }
     }
 

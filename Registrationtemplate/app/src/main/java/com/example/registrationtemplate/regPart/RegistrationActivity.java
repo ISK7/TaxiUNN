@@ -65,6 +65,8 @@ public class RegistrationActivity extends AppCompatActivity {
             second_password_er.setText(R.string.passwords_not_equal);
             return false;
         }
+        if(!App.isPasswordValid(first_password, first_password_er))
+            return false;
 
         String req_login = login.getText().toString();
         String req_password = second_password.getText().toString();
@@ -110,16 +112,18 @@ public class RegistrationActivity extends AppCompatActivity {
         if (errorResponse != null) {
             // Логируем или обрабатываем ошибку
             if(errorResponse.getEmail() != null) {
+                String error = App.parseError(errorResponse.getEmail()[0]);
                 Log.e("Error", "Error: " + errorResponse.getEmail()[0]);
-                login_er.setText(errorResponse.getEmail()[0]);
+                login_er.setText(error);
             }
             if(errorResponse.getPassword() != null) {
+                String error = App.parseError(errorResponse.getPassword()[0]);
                 Log.e("Error", "Description: " + errorResponse.getPassword()[0]);
-                second_password_er.setText(errorResponse.getPassword()[0]);
+                second_password_er.setText(error);
             }
         }
         else {
-            login_er.setText("error not parsed");
+            login_er.setText(R.string.unsupported_er);
         }
     }
     private void correctReg() {

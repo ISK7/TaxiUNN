@@ -113,16 +113,18 @@ public class LogInActivity extends AppCompatActivity {
         if (errorResponse != null) {
             // Логируем или обрабатываем ошибку
             if(errorResponse.getEmail() != null) {
+                String error = App.parseError(errorResponse.getEmail()[0]);
                 Log.e("Error", "Error: " + errorResponse.getEmail()[0]);
-                login_er.setText(errorResponse.getEmail()[0]);
+                login_er.setText(error);
             }
             if(errorResponse.getPassword() != null) {
+                String error = App.parseError(errorResponse.getPassword()[0]);
                 Log.e("Error", "Description: " + errorResponse.getPassword()[0]);
-                password_er.setText(errorResponse.getPassword()[0]);
+                password_er.setText(error);
             }
         }
         else {
-            login_er.setText("error not parsed");
+            login_er.setText(R.string.unsupported_er);
         }
     }
     private void startMain() {

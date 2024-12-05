@@ -96,12 +96,13 @@ public class NewPassActivity extends AppCompatActivity {
         if (errorResponse != null) {
             if(errorResponse.getEmail() != null) {
                 // Логируем или обрабатываем ошибку
+                String error = App.parseError(errorResponse.getEmail()[0]);
                 Log.e("Error", "Error: " + errorResponse.getEmail()[0]);
-                e_mail_er.setText(errorResponse.getEmail()[0]);
+                e_mail_er.setText(error);
             }
         }
         else {
-            e_mail_er.setText("error not parsed");
+            e_mail_er.setText(R.string.unsupported_er);
         }
     }
 

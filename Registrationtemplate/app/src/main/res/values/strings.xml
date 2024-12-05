@@ -49,4 +49,7 @@
     <string name="not_exist_account">Aккаунта с этой почтой не существует!</string>
     <string name="incorrect_password">Неверный пароль!</string>
     <string name="try_again">Попробуйте снова</string>
+    <string name="not_valid_email">Введите корректную почту!</string>
+    <string name="not_active_code">Код верификации не активен!</string>
+    <string name="password_too_short">Пароль слишком короткий!</string>
 </resources>
