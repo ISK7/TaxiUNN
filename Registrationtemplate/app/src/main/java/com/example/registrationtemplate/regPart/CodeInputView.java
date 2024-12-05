@@ -55,6 +55,14 @@ public class CodeInputView extends LinearLayout {
                 @Override
                 public void afterTextChanged(Editable s) {}
             });
+            editTexts[i].setOnFocusChangeListener(new OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus) {
+                        editTexts[findFirstEmpty()].requestFocus();
+                    }
+                }
+            });
         }
     }
 
@@ -66,26 +74,35 @@ public class CodeInputView extends LinearLayout {
         return code.toString();
     }
 
-    public void clear() {
+    private void clear() {
         for (EditText editText : editTexts) {
             editText.setText("");
         }
         editTexts[0].requestFocus();
     }
 
+    private int findFirstEmpty() {
+        for(int i = 0; i < editTexts.length; i++) {
+            if(editTexts[i].getText().toString().isEmpty()) {
+                return i;
+            }
+        }
+        return editTexts.length - 1;
+    }
+
     //Обработка нажатия backspace
     public void handleBackPress() {
         for (int i = editTexts.length - 1; i >= 0; i--) {
             if (editTexts[i].isFocused()) {
-                if (i > 0) {
-                    editTexts[i].setText(""); // Удаляем цифру
+                if (i > 0 && i < 4) {
+                    editTexts[i - 1].setText(""); // Удаляем цифру
+                    editTexts[i - 1].requestFocus(); // Переход к предыдущему полю
+                } else if(i == 4 && editTexts[i].getText().toString().isEmpty()) {
+                    editTexts[i - 1].setText(""); //Если последнее поле пустое
                     editTexts[i - 1].requestFocus(); // Переход к предыдущему полю
                 } else {
-                    editTexts[i].setText(""); // Если первый элемент, просто очищаем
+                    editTexts[i].setText(""); // Если первый или последний элемент, просто очищаем
                 }
-                break;
-            } else if (editTexts[i].getText().toString().isEmpty()) {
-                editTexts[i].requestFocus(); // Перейти к первому пустому элементу
                 break;
             }
         }

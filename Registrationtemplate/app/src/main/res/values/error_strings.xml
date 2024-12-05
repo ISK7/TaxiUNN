@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_field_er">This field is required.</string>
+    <string name="exist_account_er">An account with this email exist.</string>
+    <string name="email_not_found_er">The email not found.</string>
+    <string name="incorrect_code_er">Incorrect verification code.</string>
+    <string name="not_exist_account_er">An account with this email does not exist.</string>
+    <string name="incorrect_password_er">Invalid credentials.</string>
+    <string name="refresh_code_inactive_er">Refresh code is not active.</string>
+    <string name="try_again_er">Try again.</string>
+    <string name="not_valid_email_er">Enter a valid email address.</string>
+    <string name="not_active_code_er">The verification code is not active.</string>
+</resources>

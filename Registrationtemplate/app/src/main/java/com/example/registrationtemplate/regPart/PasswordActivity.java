@@ -4,23 +4,37 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.registrationtemplate.R;
 import com.example.registrationtemplate.generalData.App;
 import com.example.registrationtemplate.generalData.Status;
+import com.example.registrationtemplate.requests.recover_change;
+import com.example.registrationtemplate.responses.Ans_password_recovery_change;
+import com.example.registrationtemplate.responses.Ans_password_recovery_change_er;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 //Активность для ввода пароля и его подтверждения
 public class PasswordActivity extends AppCompatActivity {
 
-    ImageButton back;
+    Button back;
     EditText newPassword;
     EditText secondPassword;
+    TextView newPassword_er;
+    TextView secondPassword_er;
     Button done;
     TextView header;
 
@@ -42,10 +56,58 @@ public class PasswordActivity extends AppCompatActivity {
     }
 
     private void back() {
-        finish();
+        startLog();
+    }
+    private void startLog() {
+        Intent intent = new Intent(this, LogInActivity.class);
+        startActivity(intent);
     }
 
+    private void enqueueCall(Call<Ans_password_recovery_change> call) {
+        call.enqueue(new Callback<Ans_password_recovery_change>() {
+            @Override
+            public void onResponse(@NonNull Call<Ans_password_recovery_change> call, @NonNull Response<Ans_password_recovery_change> response) {
+                if (response.isSuccessful()) {
+                    // Обрабатываем успешный ответ, который вернется как SuccessResponse
+                    Ans_password_recovery_change successResponse = response.body();
+                    if (successResponse != null) {
+                        // Выполнение логики с данными
+                        Log.d("Success", "Message: " + successResponse.getMessage());
+                        correctPassword();
+                    }
+                } else {
+                    // Обрабатываем ошибку
+                    incorrectPassword(response);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Ans_password_recovery_change> call, @NonNull Throwable t) {
+                // Ошибка сети или что-то другое
+                Log.e("Error", Objects.requireNonNull(t.getMessage()));
+                secondPassword_er.setText(R.string.server_error);
+            }
+        });
+    }
     private boolean tryToSetPassword() {
+        EditText[] fields = {newPassword, secondPassword};
+        TextView[] error_views = {newPassword_er, secondPassword_er};
+        if(!App.fieldsNotEmpty(fields, error_views))
+            return false;
+        if(!newPassword.getText().toString().equals(secondPassword.getText().toString())) {
+            secondPassword_er.setText(R.string.passwords_not_equal);
+            return false;
+        }
+        if(!App.isPasswordValid(newPassword, newPassword_er))
+            return false;
+        String email = sharedPreferences.getString("emailAddress","lost_email");
+        String name = sharedPreferences.getString("name",getString(R.string.name_not_found));
+        String password = secondPassword.getText().toString();
+
+        recover_change rec = new recover_change(email, password);
+        Call<Ans_password_recovery_change> call = App.getServer().getApi().recoverChange(rec);
+        enqueueCall(call);
+
         return true;
     }
 
@@ -56,7 +118,34 @@ public class PasswordActivity extends AppCompatActivity {
         startMain();
     }
 
-    private void incorrectPassword() {
+    private void incorrectPassword(Response<Ans_password_recovery_change> response) {
+        Gson gson = new Gson();
+        Ans_password_recovery_change_er errorResponse = null;
+
+        try {
+            // Парсим ошибку в зависимости от тела ответа
+            String errorBody = response.errorBody().string();
+            errorResponse = gson.fromJson(errorBody, Ans_password_recovery_change_er.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (errorResponse != null) {
+            // Логируем или обрабатываем ошибку
+            if (errorResponse.getEmail() != null) {
+                String error = App.parseError(errorResponse.getEmail()[0]);
+                Log.e("Error", "Description: " + errorResponse.getEmail()[0]);
+                secondPassword_er.setText(error);
+            }
+            if (errorResponse.getPassword() != null) {
+                String error = App.parseError(errorResponse.getPassword()[0]);
+                Log.e("Error", "Description: " + errorResponse.getPassword()[0]);
+                secondPassword_er.setText(error);
+            }
+        }
+        else {
+            newPassword_er.setText(R.string.unsupported_er);
+        }
     }
 
     private void startMain() {
@@ -71,7 +160,7 @@ public class PasswordActivity extends AppCompatActivity {
         Status s = App.getStatus();
 
         header = findViewById(R.id.password_title_p);
-        if(s == Status.Log_in)
+        if(s == Status.LOG_IN)
         {
             header.setText(R.string.set_new_password_head);
         }
@@ -85,11 +174,19 @@ public class PasswordActivity extends AppCompatActivity {
         newPassword = findViewById(R.id.password_enter_p);
         secondPassword = findViewById(R.id.password_confirm_p);
 
+        newPassword_er = findViewById(R.id.password_first_error_p);
+        secondPassword_er = findViewById(R.id.password_second_error_p);
+
         done = findViewById(R.id.done_but_p);
         done.setOnClickListener(v -> {
-            if(tryToSetPassword())
-                correctPassword();
-            else incorrectPassword();
+            if(passwordsIsEqual())
+                tryToSetPassword();
+            else
+                secondPassword_er.setText(R.string.passwords_not_equal);
         });
+    }
+
+    private boolean passwordsIsEqual() {
+        return newPassword.getText().toString().equals(secondPassword.getText().toString());
     }
 }

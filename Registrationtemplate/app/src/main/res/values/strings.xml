@@ -26,7 +26,7 @@
     <string name="confirm">Подтвердить</string>
     <string name="set_password_head">Установите пароль</string>
     <string name="set_new_password_head">Установите новый пароль</string>
-    <string name="password_must">Пароль никому ничего не должен</string>
+    <string name="password_must">Пароль должен содержать не менее 8 знаков</string>
     <string name="enter_password">Введите пароль</string>
     <string name="confirm_password">Подтвердите пароль</string>
     <string name="second_password">Повторный пароль</string>
@@ -36,4 +36,20 @@
     <string name="done">Готово</string>
     <string name="log_out">Выйти</string>
     <string name="name_not_found">Имя не найдено</string>
+    <string name="invent_password">Придумайте ваш пароль</string>
+    <string name="server_error">Ошибка подключения</string>
+    <string name="passwords_not_equal">Пароли не совпадают!</string>
+    <string name="empty_field_er">Заполните это поле!</string>
+    <string name="no_code_er">Введите код полностью!</string>
+    <string name="unsupported_er">Техническая ошибка...</string>
+    <string name="no_field">Поле не задано!</string>
+    <string name="exist_account">Аккаунт с этой почтой уже существует!</string>
+    <string name="email_not_found">Почта не найдена!</string>
+    <string name="incorrect_code">Неверный код подтверждения!</string>
+    <string name="not_exist_account">Aккаунта с этой почтой не существует!</string>
+    <string name="incorrect_password">Неверный пароль!</string>
+    <string name="try_again">Попробуйте снова</string>
+    <string name="not_valid_email">Введите корректную почту!</string>
+    <string name="not_active_code">Код верификации не активен!</string>
+    <string name="password_too_short">Пароль слишком короткий!</string>
 </resources>

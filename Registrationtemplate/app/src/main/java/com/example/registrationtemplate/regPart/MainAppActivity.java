@@ -25,6 +25,8 @@ public class MainAppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_app);
+
+        App.setStatus(Status.USING);
         init();
     }
 
@@ -34,13 +36,13 @@ public class MainAppActivity extends AppCompatActivity {
         regEditor.putBoolean("isLogged",true);
         regEditor.commit();
 
+        App.Refresh();
         logout_but = findViewById(R.id.log_out_but);
         logout_but.setOnClickListener(v -> {
             regEditor.putBoolean("isLogged",false);
             regEditor.commit();
             //do smth
 
-            App.setStatus(Status.No_status);
             Intent intent = new Intent(v.getContext(), AuthorizationActivity.class);
             startActivity(intent);
         });
