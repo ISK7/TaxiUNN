@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/driver_search_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/driver_search"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="@style/CustomTextHugeBlack"
+        android:paddingTop="20dp"
+        />
+
+    <View
+        android:id="@+id/loading_bar"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_black_background"
+
+        />
+
+    <View
+        android:layout_width="329dp"
+        android:layout_height="2dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/custom_gray_background"
+        />
+
+    <EditText
+        android:id="@+id/from_text"
+        android:background="@drawable/custom_view_black_inactive"
+        android:layout_width="357dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/from"
+        android:paddingStart="16dp"
+        android:layout_marginTop="18dp"
+        android:inputType="none"
+        />
+    <EditText
+        android:id="@+id/to_text"
+        android:background="@drawable/custom_view_black_inactive"
+        android:layout_width="357dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/to"
+        android:paddingStart="16dp"
+        android:layout_marginTop="18dp"
+        android:inputType="none"
+        />
+    <LinearLayout
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="26dp"
+        android:gravity="center"
+        >
+<!--        <Button-->
+<!--            android:id="@+id/back_search_but"-->
+<!--            android:layout_width="139dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/back"-->
+<!--            android:background="@drawable/custom_but_white"-->
+<!--            android:textAppearance="@style/CustomTextButtonBack"-->
+<!--            />-->
+        <Button
+            android:id="@+id/cancel_search_but"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:background="@drawable/custom_but_red"
+            android:textAppearance="@style/CustomTextButtonBack"
+            />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/driver_search_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/driver_await"
+        android:textAppearance="@style/CustomTextHugeBlack"
+        android:paddingTop="20dp"
+        android:layout_marginLeft="28dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/car_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="28dp"
+        >
+        <TextView
+            android:id="@+id/car_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/CustomTextSmallBlack"
+            />
+        <TextView
+            android:id="@+id/car_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/CustomTextNormalBlack"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/custom_gray_background"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/from_text_waiting"
+        android:background="@drawable/custom_view_black_inactive"
+        android:layout_width="357dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/from"
+        android:paddingStart="16dp"
+        android:layout_marginTop="18dp"
+        android:inputType="none"
+        />
+    <EditText
+        android:id="@+id/to_text_waiting"
+        android:background="@drawable/custom_view_black_inactive"
+        android:layout_width="357dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/to"
+        android:paddingStart="16dp"
+        android:layout_marginTop="18dp"
+        android:inputType="none"
+        />
+</LinearLayout>
