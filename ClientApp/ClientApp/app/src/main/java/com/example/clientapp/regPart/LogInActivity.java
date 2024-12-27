@@ -94,7 +94,8 @@ public class LogInActivity extends AppCompatActivity {
 
         editor.putString("emailAddress", log_in.getText().toString());
         editor.putString("password", password.getText().toString());
-        editor.putString("name", getString(R.string.name_not_found));
+        editor.putString("refresh", successResponse.getRefresh());
+        //editor.putString("name", getString(R.string.name_not_found));
         editor.commit();
 
         startMain();

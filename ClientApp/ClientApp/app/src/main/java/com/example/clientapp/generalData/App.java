@@ -10,10 +10,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.clientapp.R;
-import com.example.clientapp.regPart.AuthorizationActivity;
 import com.example.clientapp.mainPart.MainAppActivity;
+import com.example.clientapp.regPart.AuthorizationActivity;
 import com.example.clientapp.requests.refresh;
 import com.example.clientapp.responses.Ans_refresh;
+import com.example.clientapp.sockets.Cancel;
+import com.example.clientapp.sockets.Driver_data;
+import com.example.clientapp.sockets.Driver_on_site;
+import com.example.clientapp.sockets.Driver_on_the_way;
+import com.example.clientapp.sockets.Error_resp;
+import com.example.clientapp.sockets.Make_order;
+import com.example.clientapp.sockets.Trip_beginning;
+import com.example.clientapp.sockets.Trip_ending;
+import com.google.gson.Gson;
+
+import java.net.URISyntaxException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,9 +40,11 @@ public class App extends Application {
     private static String AccessToken;
     private static String RefreshToken;
     private static Server server;
+    private static WebSocketManager connection;
 
     private static App instance;
     private static SharedPreferences sharedPreferences;
+    private static MainAppActivity curActivity;
 
     @Override
     public void onCreate() {
@@ -43,10 +56,11 @@ public class App extends Application {
         //Общие для всего приложения настройки
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         server = new Server();
+        setRefreshToken(sharedPreferences.getString("refresh","no_token"));
 
         instance = this;
 
-        setAccessToken("{{token}}");
+        Refresh();
         //проверка идёт сразу, чтобы лишний раз не загружать объекты
         if(sharedPreferences.getBoolean("isLogged", false)) {
             startMain();
@@ -86,6 +100,7 @@ public class App extends Application {
         return server;
     }
     public static void Refresh() {
+        setRefreshToken(sharedPreferences.getString("refresh","no_token"));
         refresh refresh = new refresh(RefreshToken);
 
         Call<Ans_refresh> call = getServer().getApi().refreshToken(refresh);
@@ -101,7 +116,8 @@ public class App extends Application {
                         setAccessToken(successResponse.getAccess());
                     }
                 } else {
-                    // Обрабатываем ошибку
+                    sharedPreferences.edit().putBoolean("isLogged", false).commit();
+                    instance.startAutho();
                     Log.d("Success", "Message: " + "Refresh field is required.");
                     //Доделать!
                 }
@@ -153,6 +169,69 @@ public class App extends Application {
         errorView.setTextAppearance(R.style.CustomTextNormalRed);
         errorView.setText(ans);
         return false;
+    }
+    public static void beginConnection() {
+        try {
+            connection = new WebSocketManager();
+        } catch (URISyntaxException ex) {
+            Log.e("Er", ex.getMessage());
+        }
+        if (connection == null) return;
+        connection.connect();
+    }
+    public static void sendOrder(float from_longitude, float from_latitude,
+                               float to_longitude, float to_latitude,
+                               String f, float price) {
+        Make_order order = new Make_order(from_longitude, from_latitude,
+                to_longitude, to_latitude,f, price);
+        Gson gson = new Gson();
+        String out = gson.toJson(order);
+        if(connection == null) return;
+        connection.sendMessage(out);
+    }
+    public static void sendCancel() {
+        Cancel c = new Cancel();
+        Gson gson = new Gson();
+        String out = gson.toJson(c);
+        if(connection == null) return;
+        connection.sendMessage(out);
+        connection.disconnect();
+    }
+    public static void setMain(MainAppActivity act) {
+        curActivity = act;
+    }
+    public static void getData(String msg) {
+        Gson gson = new Gson();
+        if(msg.contains(Driver_data.getMessage_type())) {
+            Driver_data dData = gson.fromJson(msg, Driver_data.class);
+            curActivity.driverFound("Lada Kalina","12442");
+            return;
+        }
+        Log.e("msg",msg);
+        if(msg.contains(Error_resp.getMessage_type())) {
+            curActivity.driverNotFound();
+            return;
+        }
+        if(msg.contains(Driver_on_the_way.getMessage_type())) {
+            Driver_data dData = gson.fromJson(msg, Driver_data.class);
+            curActivity.driverFound("Lada Kalina","12442");
+            return;
+        }
+        if(msg.contains(Driver_on_site.getMessage_type())) {
+            curActivity.driverAwaits();
+            return;
+        }
+        if(msg.contains(Trip_beginning.getMessage_type())) {
+            curActivity.onRoad();
+            return;
+        }
+        if(msg.contains(Trip_ending.getMessage_type())) {
+            curActivity.roadEnd();
+        }
+    }
+    public static void endConnection() {
+        connection.disconnect();
+        connection = null;
     }
 
     public static String parseError(String error) {

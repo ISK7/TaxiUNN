@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layout_alignParentBottom="true"
+    >
 
     <TextView
         android:id="@+id/driver_search_text"
@@ -24,12 +26,14 @@
         >
         <TextView
             android:id="@+id/car_name"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/CustomTextSmallBlack"
             />
         <TextView
             android:id="@+id/car_number"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/CustomTextNormalBlack"
@@ -48,6 +52,7 @@
         android:paddingStart="16dp"
         android:layout_marginTop="18dp"
         android:inputType="none"
+        android:editable="false"
         />
     <EditText
         android:id="@+id/to_text_waiting"
@@ -58,6 +63,8 @@
         android:hint="@string/to"
         android:paddingStart="16dp"
         android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
         android:inputType="none"
+        android:editable="false"
         />
 </LinearLayout>

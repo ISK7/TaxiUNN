@@ -40,6 +40,7 @@
             android:textAppearance="@style/CustomTextSmallBlack"/>
         <TextView
             android:id="@+id/offer_time_end"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/CustomTextButtonBlue"
@@ -62,6 +63,7 @@
             android:id="@+id/going_time_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textAppearance="@style/CustomTextButtonBlue"
             />
     </LinearLayout>
@@ -80,6 +82,7 @@
             android:textAppearance="@style/CustomTextSmallBlack"/>
         <TextView
             android:id="@+id/end_time_end"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/CustomTextButtonBlue"

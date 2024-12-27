@@ -6,5 +6,6 @@ public enum Status {
     REGISTRATION,
     USING,
     WAITING,
-    IN_ROAD
+    IN_ROAD,
+    CONNECTED
 }

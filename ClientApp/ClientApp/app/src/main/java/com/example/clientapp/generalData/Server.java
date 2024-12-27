@@ -17,10 +17,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Server {
 
     TaxiApi api;
+    TaxiApi headerApi;
 
     public Server() {
         Retrofit retrofit = createRetrofit();
         api = retrofit.create(TaxiApi.class);
+        Retrofit headerRetrofit = createHeaderRetrofit();
+        headerApi = headerRetrofit.create(TaxiApi.class);
     }
     //private final static String host = "redis";
     private final static String host = "10.0.2.2";
@@ -28,7 +31,7 @@ public class Server {
     private final static String link = "http://" + host + ":" + port + "/";
 
 
-    private OkHttpClient createOkHttpClient() {
+    private OkHttpClient createOkHttpClient(int flag) {
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //Добавляем интерсептор для добавления ключа к каждому запросу
         builder.addInterceptor(new Interceptor() {
@@ -38,9 +41,9 @@ public class Server {
                 final Request original = chain.request();
                 final HttpUrl origUrl = original.url();
                 final HttpUrl url = origUrl.newBuilder()
-                        .addQueryParameter("api_key", App.getAccessToken())
                         .build();
                 final Request.Builder reqBuilder = original.newBuilder().url(url);
+                if(flag == 1) reqBuilder.header("Authorization", "Bearer " + App.getAccessToken());
                 final Request request = reqBuilder.build();
                 return chain.proceed(request);
             }
@@ -58,15 +61,28 @@ public class Server {
         return new Retrofit.Builder()
                 .baseUrl(link)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(createOkHttpClient())
+                .client(createOkHttpClient(0))
+                .build();
+    }
+    private Retrofit createHeaderRetrofit() {
+        return new Retrofit.Builder()
+                .baseUrl(link)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(createOkHttpClient(1))
                 .build();
     }
 
     public static int getPort() {
         return port;
     }
+    public static String getHost() {
+        return host;
+    }
 
     public TaxiApi getApi() {
         return api;
+    }
+    public TaxiApi getHeaderApi() {
+        return headerApi;
     }
 }

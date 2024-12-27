@@ -77,4 +77,8 @@
     <string name="cheap_cost">240₽</string>
     <string name="medium_cost">340₽</string>
     <string name="expensive_cost">540₽</string>
+    <string name="valute">₽</string>
+    <string name="write_correct_location">Укажите корректную локацию</string>
+    <string name="no_tariffs">Тарифы не найдены!</string>
+    <string name="tariffs_is_searching">Тарифы ищутся...</string>
 </resources>

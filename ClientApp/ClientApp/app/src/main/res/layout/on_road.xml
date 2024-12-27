@@ -25,12 +25,14 @@
             android:id="@+id/car_name_onroad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textAppearance="@style/CustomTextSmallBlack"
             />
         <TextView
             android:id="@+id/car_number_onroad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textAppearance="@style/CustomTextNormalBlack"
             android:layout_marginStart="6dp"
             android:background="@drawable/custom_gray_background"
@@ -53,6 +55,7 @@
             />
         <TextView
             android:id="@+id/offer_time_road"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
@@ -78,6 +81,7 @@
             android:id="@+id/going_time_road"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:layout_marginStart="6dp"
             android:textAppearance="@style/CustomTextDarkGray"
             />
@@ -91,6 +95,7 @@
         android:paddingStart="16dp"
         android:layout_marginTop="18dp"
         android:inputType="none"
+        android:editable="false"
         android:layout_below="@id/going_time_layout"
         />
     <EditText
@@ -102,16 +107,7 @@
         android:paddingStart="16dp"
         android:layout_marginTop="18dp"
         android:inputType="none"
+        android:editable="false"
         android:layout_below="@id/from_text_onr"
         />
-        <Button
-            android:id="@+id/cancel_road_but"
-            android:layout_width="357dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:text="@string/cancel"
-            android:background="@drawable/custom_but_red"
-            android:textAppearance="@style/CustomTextButtonBack"
-            android:layout_below="@id/to_text_onr"
-            />
 </RelativeLayout>

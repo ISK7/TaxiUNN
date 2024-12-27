@@ -7,6 +7,7 @@ import com.example.clientapp.responses.Ans_login;
 import com.example.clientapp.responses.Ans_password_recovery;
 import com.example.clientapp.responses.Ans_password_recovery_change;
 import com.example.clientapp.responses.Ans_password_recovery_verify;
+import com.example.clientapp.responses.Ans_prices;
 import com.example.clientapp.responses.Ans_refresh;
 import com.example.clientapp.responses.Ans_register;
 import com.example.clientapp.responses.Ans_register_verify;
@@ -32,6 +33,8 @@ public interface TaxiApi {
     Call<Ans_password_recovery_verify> recoverVerify(@Body recover_verify recover_verify);
     @POST("clients/auth/password-recovery/change")
     Call<Ans_password_recovery_change> recoverChange(@Body recover_change recover_change);
+    @POST("order/price_list/")
+    Call<Ans_prices> getPrices(@Body price_list price_list);
     @GET("clients")
     Call<Ans_get_clients> getClients();
     @DELETE("clients")

@@ -104,7 +104,11 @@
     <TextView
         android:id="@+id/forget_password_but"
         style="@style/CustomTextNormalGray"
-        android:text="@string/forget_password" />
+        android:text="@string/forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/error_pass_l"
+        android:layout_alignStart="@id/error_pass_l"/>
 
     <Button
         android:id="@+id/login_but_l"

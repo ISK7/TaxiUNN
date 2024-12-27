@@ -1,5 +1,7 @@
 package com.example.clientapp.mainPart;
 
+import static android.os.SystemClock.sleep;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +26,21 @@ public class DriverIsWaitingFragment extends Fragment {
         return view;
     }
 
-    void setVariables(MainAppActivity main,String from_t, String to_t,
+    void setVariables(MainAppActivity m,String from_t, String to_t,
                       String name_t, String number_t) {
-        this.main = main;
-        from.setText(from_t);
-        to.setText(to_t);
-        name.setText(name_t);
-        number.setText(number_t);
+        while (number == null) {
+            sleep(10);
+        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                main = m;
+                from.setText(from_t);
+                to.setText(to_t);
+                name.setText(name_t);
+                number.setText(number_t);
+            }
+        });
     }
 
     private void init() {

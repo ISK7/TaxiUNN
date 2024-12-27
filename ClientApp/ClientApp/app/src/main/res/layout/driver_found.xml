@@ -35,12 +35,14 @@
             android:id="@+id/car_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textAppearance="@style/CustomTextSmallBlack"
             />
         <TextView
             android:id="@+id/car_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textAppearance="@style/CustomTextNormalBlack"
             android:layout_marginStart="6dp"
             android:background="@drawable/custom_gray_background"
@@ -55,6 +57,7 @@
         android:paddingStart="16dp"
         android:layout_marginTop="18dp"
         android:inputType="none"
+        android:editable="false"
         android:layout_below="@id/car_description"
         />
     <EditText
@@ -66,6 +69,7 @@
         android:paddingStart="16dp"
         android:layout_marginTop="18dp"
         android:inputType="none"
+        android:editable="false"
         android:layout_below="@id/from_text_found"
         />
     <Button

@@ -1,5 +1,7 @@
 package com.example.clientapp.mainPart;
 
+import static android.os.SystemClock.sleep;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,16 +25,24 @@ public class RoadIsEndFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.driver_search_fragment, container, false);
+        view = inflater.inflate(R.layout.road_is_end, container, false);
         init();
         return view;
     }
 
     public void setVariable(MainAppActivity m, String offer_t, String going_t, String end_t) {
-        mainActivity = m;
-        offer.setText(offer_t);
-        going.setText(going_t);
-        end.setText(end_t);
+        while(close == null) {
+            sleep(10);
+        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mainActivity = m;
+                offer.setText(offer_t);
+                going.setText(going_t);
+                end.setText(end_t);
+            }
+        });
     }
     private void init() {
         offer = view.findViewById(R.id.offer_time_end);

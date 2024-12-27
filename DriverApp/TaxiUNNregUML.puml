@@ -1,0 +1,449 @@
+@startuml
+class Ans_register_verify {
+~ String message
++ String getMessage()
++ void setMessage(String)
+}
+
+
+class recover_verify {
++ String email
++ String verification_code
+}
+
+class Ans_login {
+~ String refresh
+~ String access
++ String getRefresh()
++ void setRefresh(String)
++ String getAccess()
++ void setAccess(String)
+}
+
+
+class Ans_delete_clients {
+~ String message
+~ String detail
++ String getMessage()
++ void setMessage(String)
++ String getDetail()
++ void setDetail(String)
+}
+
+
+class Ans_password_recovery_change_er {
+~ String[] email
+~ String[] password
++ String[] getEmail()
++ void setEmail(String[])
++ String[] getPassword()
++ void setPassword(String[])
+}
+
+
+class Ans_password_recovery_verify_er {
+~ String[] email
+~ String[] verification_code
++ String[] getEmail()
++ void setEmail(String[])
++ String[] getVerification_code()
++ void setVerification_code(String[])
+}
+
+
+class Ans_password_recovery_change {
+~ String message
++ String getMessage()
++ void setMessage(String)
+}
+
+
+class CodeInputView {
+- EditText[] editTexts
+- void init(Context)
++ String getCode()
+- void clear()
+- int findFirstEmpty()
++ void handleBackPress()
++ boolean dispatchKeyEvent(KeyEvent)
+}
+
+
+class Ans_password_recovery_verify {
+~ String message
++ String getMessage()
++ void setMessage(String)
+}
+
+
+class Server {
+~ TaxiApi api
+- {static} String host
+- {static} Integer port
+- {static} String link
+- OkHttpClient createOkHttpClient()
+- Retrofit createRetrofit()
++ {static} int getPort()
++ TaxiApi getApi()
+}
+
+
+class Ans_refresh {
+~ String access
++ String getAccess()
++ void setAccess(String)
+}
+
+
+class Ans_register_er {
+~ String[] email
+~ String[] password
+~ String[] full_name
++ String[] getEmail()
++ void setEmail(String[])
++ String[] getPassword()
++ void setPassword(String[])
++ String[] getFull_name()
++ void setFull_name(String[])
+}
+
+
+class register {
+~ String email
+~ String password
+~ String full_name
+}
+
+class AuthorizationActivity {
+~ Button yesBut
+~ Button logBut
+# void onCreate(Bundle)
+- void startReg()
+- void startLog()
+- void initialize()
+}
+
+
+class Ans_login_er {
+~ String[] email
+~ String[] password
++ String[] getEmail()
++ void setEmail(String[])
++ String[] getPassword()
++ void setPassword(String[])
+}
+
+
+class Ans_password_recovery {
+~ String message
++ String getMessage()
++ void setMessage(String)
+}
+
+
+class recover {
+~ String email
+}
+
+class CodeConfirmActivity {
+~ Button back
+~ Button confirm
+~ TextView send_again
+~ CodeInputView code
+~ TextView code_er
+~ SharedPreferences sharedPreferences
+# void onCreate(Bundle)
+- void back()
+- void sendAgain()
+- void enqueueRegCall(Call<Ans_register_verify>)
+- void enqueueRecCall(Call<Ans_password_recovery_verify>)
+- boolean tryToConfirm()
+- void incorrectCode(Object)
+- void incorrectEmail(Response<Ans_password_recovery>)
+- void startPassword()
+- void initialization()
+}
+
+
+class RegistrationActivity {
+~ Button back
+~ EditText first_password
+~ EditText login
+~ EditText name
+~ TextView first_password_er
+~ TextView login_er
+~ TextView name_er
+~ Button reg_but
+~ TextView reg_to_log_but
+~ CheckBox politics_check
+~ TextView politics_view
+~ SharedPreferences sharedPreferences
+~ SharedPreferences.Editor editor
+# void onCreate(Bundle)
+- boolean tryToReg()
+- void incorrectReg(Response<Ans_register>)
+- void correctReg()
+- void trySendCode()
+- void startLog()
+- void back()
+- void checkChange()
+- void initialization()
+}
+
+
+class NewPassActivity {
+~ EditText e_mail
+~ TextView e_mail_er
+~ Button back_but
+~ Button sendCode
+~ SharedPreferences sharedPreferences
+~ SharedPreferences.Editor editor
+# void onCreate(Bundle)
+- boolean tryToSend()
+- void incorrectEmail(Response<Ans_password_recovery>)
+- void sendCode()
+- void back()
+- void initialization()
+}
+
+
+class login {
+~ String email
+~ String password
+}
+
+class LogInActivity {
+~ EditText log_in
+~ EditText password
+~ Button login_but
+~ Button back_but
+~ TextView to_new_password_but
+~ TextView to_reg_but
+~ TextView login_er
+~ TextView password_er
+~ SharedPreferences sharedPreferences
+~ SharedPreferences.Editor editor
+# void onCreate(Bundle)
+- boolean tryToLogin()
+- void correctLogin(Response<Ans_login>)
+- void incorrectLogin(Response<Ans_login>)
+- void startMain()
+- void back()
+- void forgetPassword()
+- void createAccount()
+- void initialization()
+}
+
+
+interface TaxiApi {
+~ Call<Ans_register_verify> activateAccount(reg_verify)
+~ Call<Ans_login> logInAccount(login)
+~ Call<Ans_password_recovery> recoverPassword(recover)
+~ Call<Ans_register> registerClient(register)
+~ Call<Ans_refresh> refreshToken(refresh)
+~ Call<Ans_password_recovery_verify> recoverVerify(recover_verify)
+~ Call<Ans_password_recovery_change> recoverChange(recover_change)
+~ Call<Ans_get_clients> getClients()
+~ Call<Ans_delete_clients> deleteClient()
+}
+
+class Ans_register {
+~ String message
++ String getMessage()
++ void setMessage(String)
+}
+
+
+enum Status {
++  NO_STATUS
++  LOG_IN
++  REGISTRATION
++  USING
+}
+
+class PasswordActivity {
+~ Button back
+~ EditText newPassword
+~ EditText secondPassword
+~ TextView newPassword_er
+~ TextView secondPassword_er
+~ Button done
+~ TextView header
+~ SharedPreferences sharedPreferences
+~ SharedPreferences.Editor editor
+# void onCreate(Bundle)
+- String passwordToHash(String)
+- void back()
+- void startLog()
+- void enqueueCall(Call<Ans_password_recovery_change>)
+- boolean tryToSetPassword()
+- void correctPassword()
+- void incorrectPassword(Response<Ans_password_recovery_change>)
+- void startMain()
+- void initialization()
+- boolean passwordsIsEqual()
+}
+
+
+class Ans_password_recovery_er {
+~ String[] email
++ String[] getEmail()
++ void setEmail(String[])
+}
+
+
+class Ans_refresh_er {
+~ String[] refresh
++ String[] getRefreshErrors()
++ void setRefresh(String[])
+}
+
+
+class App {
+- {static} Status status
+- {static} String AccessToken
+- {static} String RefreshToken
+- {static} Server server
+- {static} App instance
+- {static} SharedPreferences sharedPreferences
++ void onCreate()
+- void init()
+- void startMain()
+- void startAutho()
+~ {static} String getAccessToken()
++ {static} void setAccessToken(String)
+~ {static} String getRefreshToken()
++ {static} void setRefreshToken(String)
++ {static} Server getServer()
++ {static} void Refresh()
++ {static} void setStatus(Status)
++ {static} Status getStatus()
++ {static} boolean fieldsNotEmpty(EditText[],TextView[])
+- {static} int checkPassword(String)
++ {static} boolean isPasswordValid(TextView,TextView)
++ {static} String parseError(String)
+}
+
+
+class Ans_get_clients {
+~ String message
+~ String detail
++ String getMessage()
++ void setMessage(String)
++ String getDetail()
++ void setDetail(String)
+}
+
+
+class refresh {
++ String refresh
+}
+
+class MainAppActivity {
+~ Button logout_but
+~ SharedPreferences sharedPreferences
+~ SharedPreferences.Editor regEditor
+# void onCreate(Bundle)
+- void init()
+}
+
+
+class recover_change {
+~ String email
+~ String password
+}
+
+class Ans_register_verify_er {
+~ String[] email
+~ String[] verification_code
++ String[] getEmail()
++ void setEmail(String[])
++ String[] getVerification_code()
++ void setVerification_code(String[])
+}
+
+
+class reg_verify {
++ String email
++ String verification_code
+}
+
+
+Server o-- App
+App o-- App
+Status o-- App
+TaxiApi o-- Server
+CodeInputView o-- CodeConfirmActivity
+
+AuthorizationActivity "1" -- "1" App
+MainAppActivity "1" -- "1" App
+CodeConfirmActivity "0" -- "1" App
+LogInActivity "0" -- "1" App
+NewPassActivity "0" -- "1" App
+RegistrationActivity "0" -- "1" App
+
+'login "1" -- "0" TaxiApi
+'recover "1" -- "0" TaxiApi
+'recover_change "1" -- "0" TaxiApi
+'recover_verify "1" -- "0" TaxiApi
+'refresh "1" -- "0" TaxiApi
+'reg_verify "1" -- "0" TaxiApi
+'register "1" -- "0" TaxiApi
+'
+'Ans_delete_clients "1" -- "0" TaxiApi
+'Ans_get_clients "1" -- "0" TaxiApi
+'Ans_login "1" -- "0" TaxiApi
+'Ans_login_er "1" -- "0" TaxiApi
+'Ans_password_recovery "1" -- "0" TaxiApi
+'Ans_password_recovery_er "1" -- "0" TaxiApi
+'Ans_password_recovery_change "1" -- "0" TaxiApi
+'Ans_password_recovery_change_er "1" -- "0" TaxiApi
+'Ans_password_recovery_verify "1" -- "0" TaxiApi
+'Ans_password_recovery_verify_er "1" -- "0" TaxiApi
+'Ans_refresh "1" -- "0" TaxiApi
+'Ans_refresh_er "1" -- "0" TaxiApi
+'Ans_register "1" -- "0" TaxiApi
+'Ans_register_er "1" -- "0" TaxiApi
+'Ans_register_verify "1" -- "0" TaxiApi
+'Ans_register_verify_er "1" -- "0" TaxiApi
+
+login "1" -- "0" LogInActivity
+recover "1" -- "0" NewPassActivity
+recover "1" -- "0" CodeConfirmActivity
+recover_change "1" -- "0" PasswordActivity
+recover_verify "1" -- "0" CodeConfirmActivity
+refresh "1" -- "0" App
+reg_verify "1" -- "0" CodeConfirmActivity
+register "1" -- "0" RegistrationActivity
+
+Ans_login "1" -- "0" LogInActivity
+Ans_login_er "1" -- "0" LogInActivity
+Ans_password_recovery "1" -- "0" NewPassActivity
+Ans_password_recovery_er "1" -- "0" NewPassActivity
+Ans_password_recovery "1" -- "0" CodeConfirmActivity
+Ans_password_recovery_er "1" -- "0" CodeConfirmActivity
+Ans_password_recovery_change "1" -- "0" PasswordActivity
+Ans_password_recovery_change_er "1" -- "0" PasswordActivity
+Ans_password_recovery_verify "1" -- "0" CodeConfirmActivity
+Ans_password_recovery_verify_er "1" -- "0" CodeConfirmActivity
+Ans_refresh "1" -- "0" App
+Ans_refresh_er "1" -- "0" App
+Ans_register "1" -- "0" RegistrationActivity
+Ans_register_er "1" -- "0" RegistrationActivity
+Ans_register_verify "1" -- "0" CodeConfirmActivity
+Ans_register_verify_er "1" -- "0" CodeConfirmActivity
+
+AuthorizationActivity "0" -- "1" LogInActivity
+AuthorizationActivity "0" -- "1" RegistrationActivity
+LogInActivity "0" -- "1" MainAppActivity
+LogInActivity "0" -- "1" NewPassActivity
+LogInActivity "0" -- "1" RegistrationActivity
+RegistrationActivity "0" -- "1" LogInActivity
+RegistrationActivity "0" -- "1" CodeConfirmActivity
+NewPassActivity "0" -- "1" CodeConfirmActivity
+CodeConfirmActivity "0" -- "1" PasswordActivity
+CodeConfirmActivity "0" -- "1" LogInActivity
+LogInActivity "0" -- "1" PasswordActivity
+MainAppActivity "0" -- "1" PasswordActivity
+
+@enduml

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
+
+    <View
+        android:id="@+id/background"
+        android:layout_width="75dp"
+        android:layout_height="68dp"
+        android:background="@drawable/custom_view_black_inactive"
+        />
+    <TextView
+        android:id="@+id/cost_t"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/CustomTextBigBlack"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="15dp"
+        android:textAlignment="center"
+        android:text="fr"
+        />
+    <TextView
+        android:id="@+id/name_t"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/CustomTextNormalGray"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:paddingTop="30dp"
+        android:text="fr"
+        />
+    <Button
+        android:id="@+id/button_t"
+        android:layout_width="75dp"
+        android:layout_height="68dp"
+        android:background="@android:color/transparent"
+        />
+</RelativeLayout>

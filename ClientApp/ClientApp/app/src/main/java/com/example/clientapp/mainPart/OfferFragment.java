@@ -21,13 +21,12 @@ public class OfferFragment extends BottomSheetDialogFragment {
     private int cheap = 240, medium = 340, expensive = 540;
     private EditText from;
     private EditText to;
-    private ArrayList<Button> tariffs;
-    private ArrayList<Integer> costs;
-    private Button cur_tariff;
+    private OfferView cur_tariff;
+    private ArrayList<OfferView> tariffs;
+    LinearLayout tariff_list;
     private Button offer;
     private View view;
-    private TextView from_er, to_er;
-
+    private TextView from_er, to_er, no_tariff;
     private MainAppActivity mainActivity;
 
     @Override
@@ -53,44 +52,52 @@ public class OfferFragment extends BottomSheetDialogFragment {
         to = view.findViewById(R.id.to_input);
         from_er = view.findViewById(R.id.from_er);
         to_er = view.findViewById(R.id.to_er);
-
-        tariffs = new ArrayList<>();
-        costs = new ArrayList<>();
-        tariffs.add(view.findViewById(R.id.tariff_cheap));
-        costs.add(cheap);
-        tariffs.add(view.findViewById(R.id.tariff_medium));
-        costs.add(medium);
-        tariffs.add(view.findViewById(R.id.tariff_expencive));
-        costs.add(expensive);
         offer = view.findViewById(R.id.offer_but);
+        no_tariff = view.findViewById(R.id.no_tariff_text);
 
-        for(Button tariff : tariffs) {
-            tariff.setOnClickListener(v -> {
-                if(cur_tariff == tariff) return;
-                if(cur_tariff != null) {
-                    cur_tariff.setBackground(getResources().getDrawable(R.drawable.custom_view_black_inactive));
-                }
-                tariff.setBackground(getResources().getDrawable(R.drawable.custom_view_black_corners));
-                cur_tariff = tariff;
-                if (!offer.isEnabled()) {
-                    offer.setEnabled(true);
-                    offer.setBackground(getResources().getDrawable(R.drawable.custom_but_blue));
-                }
-            });
-        }
+        tariff_list = view.findViewById(R.id.offer_layout);
+        tariffs = new ArrayList<>();
 
         offer.setOnClickListener(v -> {
             EditText[] fields = {from, to};
             TextView[] errors = {from_er, to_er};
             if (!App.fieldsNotEmpty(fields, errors) || cur_tariff == null) return;
-            mainActivity.makeOffer(from.getText().toString(), to.getText().toString(),
-                    costs.get(tariffs.indexOf(cur_tariff)));
+            mainActivity.tryOffer(from.getText().toString(), to.getText().toString(),
+                    cur_tariff.getName(), cur_tariff.getCost());
         });
 
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.root));
         bottomSheetBehavior.setPeekHeight(dpToPx(154));
     }
 
+    void delNoTariffSign() {
+        tariff_list.removeView(no_tariff);
+    }
+
+    void chooseTariff(OfferView tar) {
+        cur_tariff = tar;
+        for(OfferView tariff : tariffs) {
+            if(cur_tariff.equals(tariff)) tariff.setEnabledBackground();
+            else tariff.setDisabledBackground();
+        }
+        if (!offer.isEnabled()) {
+            offer.setEnabled(true);
+            offer.setBackground(getResources().getDrawable(R.drawable.custom_but_blue));
+        }
+    }
+
+    void addTariff(Float price, String name) {
+        OfferView tariff = new OfferView(getContext());
+        tariff.setStats(this, price,name);
+        tariffs.add(tariff);
+        tariff_list.addView(tariff);
+    }
+    void setToEr(String er) {
+        to_er.setText(er);
+    }
+    void setFromEr(String er) {
+        from_er.setText(er);
+    }
     private int dpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;
         return (int) (dp * density);
