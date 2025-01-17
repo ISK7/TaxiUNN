@@ -203,8 +203,13 @@ public class App extends Application {
     public static void getData(String msg) {
         Gson gson = new Gson();
         if(msg.contains(Driver_data.getMessage_type())) {
-            Driver_data dData = gson.fromJson(msg, Driver_data.class);
-            curActivity.driverFound("Lada Kalina","12442");
+            try {
+                Driver_data dData = gson.fromJson(msg, Driver_data.class);
+                curActivity.driverFound(dData.getColor() + " " + dData.getMark() + " " +
+                        dData.getModel(), dData.getNumber());
+            } catch(Exception ex) {
+                curActivity.driverFound("Lada Kalina", "12442");
+            }
             return;
         }
         Log.e("msg",msg);
@@ -213,8 +218,7 @@ public class App extends Application {
             return;
         }
         if(msg.contains(Driver_on_the_way.getMessage_type())) {
-            Driver_data dData = gson.fromJson(msg, Driver_data.class);
-            curActivity.driverFound("Lada Kalina","12442");
+            curActivity.driverFound("Lada Kalina", "12442");
             return;
         }
         if(msg.contains(Driver_on_site.getMessage_type())) {

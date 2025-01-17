@@ -342,6 +342,18 @@ public class MainAppActivity extends AppCompatActivity {
     String getCarName() {return carName;}
     String getCarNumber() {return carNumber;}
 
+    public void setOfferT(String offerT) {
+        this.offerT = offerT;
+    }
+
+    public void setGoingT(String goingT) {
+        this.goingT = goingT;
+    }
+
+    public void setEndT(String endT) {
+        this.endT = endT;
+    }
+
     public String getOfferT() {
         return offerT;
     }

@@ -31,6 +31,7 @@ public class App extends Application {
     private static Server server;
 
     private static App instance;
+    private static MainAppActivity main;
     private static SharedPreferences sharedPreferences;
 
     @Override
@@ -47,13 +48,7 @@ public class App extends Application {
         instance = this;
 
         setAccessToken("{{token}}");
-        //проверка идёт сразу, чтобы лишний раз не загружать объекты
-        if(sharedPreferences.getBoolean("isLogged", false)) {
-            startMain();
-        }
-        else {
-            startAutho();
-        }
+        startAutho();
     }
     private void startMain() {
         Intent intent = new Intent(this, MainAppActivity.class);
@@ -64,6 +59,10 @@ public class App extends Application {
         Intent intent = new Intent(this, AuthorizationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public static void setMain(MainAppActivity main) {
+        App.main = main;
     }
 
     static String getAccessToken() {
@@ -117,6 +116,9 @@ public class App extends Application {
 
     public static void setStatus(Status s) {
         status = s;
+    }
+    public static void getData(String msg) {
+        main.setInfo(msg);
     }
 
     public static Status getStatus() {

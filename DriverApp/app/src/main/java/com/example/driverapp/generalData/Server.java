@@ -62,6 +62,10 @@ public class Server {
                 .build();
     }
 
+    public static String getHost() {
+        return host;
+    }
+
     public static int getPort() {
         return port;
     }

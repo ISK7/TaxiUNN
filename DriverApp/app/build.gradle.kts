@@ -75,6 +75,11 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.rxjava)
     implementation(libs.rxandroid)
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\AndroidSDK\\Projects\\TaxiUNN\\DriverApp\\app\\libs",
+        "include" to listOf("*.aar", "*.jar")
+    )))
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

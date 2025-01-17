@@ -4,5 +4,6 @@ public enum Status {
     NO_STATUS,
     LOG_IN,
     REGISTRATION,
-    USING
+    USING,
+    CONNECTED
 }
